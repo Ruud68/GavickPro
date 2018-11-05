@@ -204,4 +204,63 @@ div.gk_tab_item a.btn { margin-right: 3px;}
 .j32 > .form-inline-header > .control-group > .control-label { width: 10%; float: left; padding: 0!important; line-height: 32px }
 .j32 > .form-inline-header > .control-group > .controls { width: 90%; float: left; padding: 0!important }
 .j32 > .form-inline-header > .control-group > .controls > input { max-width: 99%; width: 99%}
-.j32 #attrib-IMAGE_SHOW_INTERFACE div.controls { margin: 0!important }
+.j32 #attrib-IMAGE_SHOW_INTERFACE > .control-group > div.controls { margin: 0 !important }
+
+/* Joomla! 4 styles */
+.j4 ul#myTabTabs > li {
+	width: 100%;
+}
+
+.j4 #attrib-IMAGE_SHOW_MANAGER > .control-group > .controls,
+.j4 #attrib-IMAGE_SHOW_ABOUT_US > .control-group > .controls {
+	margin-left: 0;
+}
+
+.j4 #attrib-IMAGE_SHOW_MANAGER > .control-group > .control-label,
+.j4 #attrib-IMAGE_SHOW_ABOUT_US > .control-group > .control-label {
+	float: none;
+}
+
+.j4 .gk_tab_edit_submit, 
+.j4 .gk_tab_add_submit {
+	margin-left: 0;
+}
+
+.j4 .gk_tab_editor_scroll label,
+.j4 .module_style label,
+.j4 .gk_tab_add label {
+	font-size: 14px;
+	color: #212529;
+}
+
+.j4 .gk_tab_editor_scroll > div, 
+.j4 .gk_tab_add {
+	background: none;
+	margin: 18px 0;
+	padding: 0;
+}
+
+.input-group-btn a.modal-media, 
+.input-group-btn a.btn-success {
+	margin-right: 0;
+}
+
+.j4 .adminformlist {
+	clear: both;
+}
+
+#attrib-IMAGE_SHOW_ABOUT_US .control-group + .control-group {
+	display: none;
+}
+
+span.readonly { padding: 10px; font-family: Arial; font-size:13px !important; font-weight: normal !important; text-align: justify; color: #4d4d4d; line-height: 24px; }
+span.readonly h1 { clear:both; font-family: Georgia, sans-serif; font-size:38px; margin:30px 20px 23px; padding:0px 0px 24px 10px; color:#333; border-bottom: 1px solid #eee; font-weight: normal; }
+span.tooltip-content { display: none; }
+.tip-text span.readonly { display: none; }
+.tip-text span.tooltip-content { display: block; }
+span.readonly p { margin: 0 26px 10px }
+span.readonly p a { color: #8e0b8c }
+span.readonly p.homepage { margin-top: 30px }
+span.readonly p.license { border-top: 1px solid #eee; font-size: 11px; margin: 30px 26px 0; padding: 6px 0; }
+
+.form-horizontal .control-label:empty { display: none; }

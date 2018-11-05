@@ -21,7 +21,7 @@ class JFormFieldGkDynamicList extends JFormField
 
 	protected function getInput()
 	{
-		$attr = $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
+		$attr = $this->element['class'] ? ' class="form-control custom-select' . (string) $this->element['class'] . '"' : 'class="form-control custom-select"';
 
 		if ((string) $this->element['readonly'] == 'true' || (string) $this->element['disabled'] == 'true')
 		{

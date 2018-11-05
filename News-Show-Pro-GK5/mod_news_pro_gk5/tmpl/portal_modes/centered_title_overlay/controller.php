@@ -56,7 +56,7 @@ class NSP_GK5_Centered_Title_Overlay {
 			// output the HTML code - main wrapper
 			echo '<figure class="gkNspPM gkNspPM-CenteredTitleOverlay">';
 			
-			if(trim($this->parent->config['nsp_pre_text'])) {
+			if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 				echo $this->parent->config['nsp_pre_text'];
 			}
 			
@@ -81,7 +81,7 @@ class NSP_GK5_Centered_Title_Overlay {
 			echo '</div></div>';
 			echo '</figcaption>';
 			
-			if(trim($this->parent->config['nsp_post_text'])) {
+			if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 				echo $this->parent->config['nsp_post_text'];
 			}
 			

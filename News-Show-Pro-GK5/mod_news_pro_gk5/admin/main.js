@@ -7,7 +7,7 @@
  * @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
  * @version $Revision: GK5 1.0 $
  **/
-jQuery(window).load(function() {	
+jQuery(window).on('load', function() {
 	// initialize the configuration manager
 	var configManager = new NSPGK5ConfigManager();
 	
@@ -23,8 +23,10 @@ jQuery(window).load(function() {
 	});
 	//
 	// check Joomla! version and add suffix
-	if(parseFloat((jQuery('#gk_about_us').data('jversion')).substr(0,3)) >= '3.2') {
-		jQuery('#module-form').addClass('j32');
+	if(parseFloat((jQuery('#gk_about_us').data('jversion')).substr(0,3)) >= '4.0') {
+		jQuery('#module-form').addClass('j32 j4');
+	} else if (parseFloat((jQuery('#gk_about_us').data('jversion')).substr(0,3)) >= '3.2') {
+		jQuery('#module-form').addClass('j32 j32-least');
 	}
 	jQuery('a[href="#attrib-advanced"]').parent().addClass('separator');
 	jQuery('a[href^="#description"]').parent().css('display', 'none');
@@ -35,21 +37,21 @@ jQuery(window).load(function() {
 	});
 	
 	jQuery('.gk_switch').each(function(i, el){
-			el = jQuery(el);
-			el.css('display','none');
-			var style = (el.val() == 1) ? 'on' : 'off';
-			var switcher = new jQuery('<div>',{'class' : 'switcher-'+style});
-			el.before(switcher);
-			switcher.click( function(){
-				if(el.val() == 1){
-					switcher.attr('class','switcher-off');
-					el.val(0);
-				} else {
-					switcher.attr('class','switcher-on');
-					el.val(1);
-				}
-			});
+		el = jQuery(el);
+		el.css('display','none');
+		var style = (el.val() == 1) ? 'on' : 'off';
+		var switcher = new jQuery('<div>',{'class' : 'switcher-'+style});
+		el.before(switcher);
+		switcher.click( function(){
+			if(el.val() == 1){
+				switcher.attr('class','switcher-off');
+				el.val(0);
+			} else {
+				switcher.attr('class','switcher-on');
+				el.val(1);
+			}
 		});
+	});
 	
 	var link = new jQuery('<a>', { 'class' : 'gkHelpLink', 'href' : 'http://www.gavick.com/news-show-pro-gk5.html', 'target' : '_blank' });
 	jQuery('div.accordion-group').eq(jQuery('div.accordion-group').length-2).find('.accordion-heading').append(link);
@@ -113,13 +115,22 @@ jQuery(window).load(function() {
 	jQuery('.gkFormLine.hasText').each(function (i, el) {
 		jQuery(el).parent().css('margin-left', '20px');
 	});
-	
-	jQuery('.input-pixels').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">px</span></div>")});
-	jQuery('.input-minutes').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">minutes</span></div>")});
-	jQuery('.input-percents').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">%</span></div>")});
-	jQuery('.input-ms').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">ms</span></div>")});
-	jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_img_width').after('<span class=\"add-on\">&times;</span>');});
-	jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_links_img_width').after('<span class=\"add-on\">&times;</span>');});
+
+	if(parseFloat((jQuery('#gk_about_us').data('jversion')).substr(0,3)) >= '4.0') {
+		jQuery('.input-pixels').each(function(i, el){jQuery(el).parent().html("<div class=\"input-group\">" + jQuery(el).parent().html() + "<span class=\"input-group-addon\">px</span></div>")});
+		jQuery('.input-minutes').each(function(i, el){jQuery(el).parent().html("<div class=\"input-group\">" + jQuery(el).parent().html() + "<span class=\"input-group-addon\">minutes</span></div>")});
+		jQuery('.input-percents').each(function(i, el){jQuery(el).parent().html("<div class=\"input-group\">" + jQuery(el).parent().html() + "<span class=\"input-group-addon\">%</span></div>")});
+		jQuery('.input-ms').each(function(i, el){jQuery(el).parent().html("<div class=\"input-group\">" + jQuery(el).parent().html() + "<span class=\"input-group-addon\">ms</span></div>")});
+		jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_img_width').after('<span class=\"input-group-addon\">&times;</span>');});
+		jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_links_img_width').after('<span class=\"input-group-addon\">&times;</span>');});
+	} else if (parseFloat((jQuery('#gk_about_us').data('jversion')).substr(0,3)) >= '3.2') {
+		jQuery('.input-pixels').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">px</span></div>")});
+		jQuery('.input-minutes').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">minutes</span></div>")});
+		jQuery('.input-percents').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">%</span></div>")});
+		jQuery('.input-ms').each(function(i, el){jQuery(el).parent().html("<div class=\"input-prepend\">" + jQuery(el).parent().html() + "<span class=\"add-on\">ms</span></div>")});
+		jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_img_width').after('<span class=\"add-on\">&times;</span>');});
+		jQuery('.input-times').each(function(i, el){ jQuery(el).parent().find('#jform_params_links_img_width').after('<span class=\"add-on\">&times;</span>');});
+	}
 	
 	jQuery('#jform_params_img_height-lbl').parents().eq(1).css('display', 'none');
 	jQuery('#jform_params_links_img_height-lbl').parents().eq(1).css('display', 'none');

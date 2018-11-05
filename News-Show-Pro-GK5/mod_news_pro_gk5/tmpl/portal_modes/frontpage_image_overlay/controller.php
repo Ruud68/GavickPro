@@ -42,16 +42,14 @@ class NSP_GK5_Frontpage_Image_Overlay {
 			// output the HTML code
 			echo '<figure class="gkNspPM gkNspPM-FrontpageImageOverlay" data-textcolor="'.$this->parent->config['portal_mode_frontpage_image_overlay_text_color'].'">';
 			
-			if(trim($this->parent->config['nsp_pre_text'])) {
+			if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 				echo $this->parent->config['nsp_pre_text'];
 			}
 			
 			//
 			if($this->get_image($i)) {
 				$img_url = strip_tags($this->get_image($i));
-				if(substr($img_url, 0, 6) == 'images') {
-					$img_url = '/' . $img_url;
-				}
+
 				echo '<span style="background: url(\''.$img_url.'\');" ><span></span></span>';
 			}
 			//
@@ -67,7 +65,7 @@ class NSP_GK5_Frontpage_Image_Overlay {
 				}
 				
 				if($this->parent->config['portal_mode_frontpage_image_overlay_text'] != 0) {
-					echo '<p>' . JString::substr(strip_tags($this->parent->content[$i]['text']), 0, $this->parent->config['portal_mode_frontpage_image_overlay_text_limit']) . '&hellip;</p>';
+					echo '<p>'.NSP_GK5_Utils::cutText(strip_tags($this->parent->content[$i]['text']), $this->parent->config, 'portal_mode_frontpage_image_overlay_text_limit', '&hellip;').'</p>';
 				}
 				
 				if($this->parent->config['portal_mode_frontpage_image_overlay_readon'] != 0) {
@@ -85,7 +83,7 @@ class NSP_GK5_Frontpage_Image_Overlay {
 				echo '</figcaption>';
 			}
 			
-			if(trim($this->parent->config['nsp_post_text'])) {
+			if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 				echo $this->parent->config['nsp_post_text'];
 			}
 			

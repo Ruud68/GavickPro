@@ -23,7 +23,7 @@ class JFormFieldStyles extends JFormField {
 			return 'Module have no styles. Please install some style package.';
 		}
 		
-		return JHTML::_('select.genericlist', $options, 'jform[params][module_style]', '', 'value', 'text', $this->value, 'jform_params_module_style');
+		return JHTML::_('select.genericlist', $options, 'jform[params][module_style]', 'class="form-control custom-select"', 'value', 'text', $this->value, 'jform_params_module_style');
 	}
 }
 

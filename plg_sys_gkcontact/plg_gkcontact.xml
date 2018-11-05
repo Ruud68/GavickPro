@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.5" type="plugin" group="system" method="upgrade">
+	<name>System - GK Contact</name>
+	<author>www.gavick.com</author>
+	<creationDate>Sep 10th, 2018</creationDate>
+	<copyright>All Rights Reserved.</copyright>
+	<license>license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>info@gavick.com</authorEmail>
+	<authorUrl>https://www.gavick.com</authorUrl>
+	<version>1.1.4</version>
+	<description>PLG_GKCONTACT</description>	
+	<files>
+		<filename plugin="plg_gkcontact">plg_gkcontact.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_plg_gkcontact.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_plg_gkcontact.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="form">
+				<field name="name_field" type="radio"
+					description="PLG_GKCONTACT_NAME_FIELD_DESC"
+					label="PLG_GKCONTACT_NAME_FIELD"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field name="email_field" type="radio"
+					description="PLG_GKCONTACT_EMAIL_FIELD_DESC"
+					label="PLG_GKCONTACT_EMAIL_FIELD"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field name="title_field" type="radio"
+					description="PLG_GKCONTACT_TITLE_FIELD_DESC"
+					label="PLG_GKCONTACT_TITLE_FIELD"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field name="eu_protect_field" type="radio"
+					description="PLG_GKCONTACT_EU_PROTECT_FIELD_DESC"
+					label="PLG_GKCONTACT_EU_PROTECT_FIELD"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field name="use_recaptcha" type="radio"
+					description="PLG_GKCONTACT_USE_RECAPTCHA_DESC"
+					label="PLG_GKCONTACT_USE_RECAPTCHA"
+					default="1"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				
+				<field name="public_key" type="text"
+					description="PLG_GKCONTACT_PUBLIC_KEY_DESC"
+					label="PLG_GKCONTACT_PUBLIC_KEY"
+					default=""
+				/>
+			</fieldset>
+			
+			<fieldset name="config">
+				<field name="emails" type="text"
+					description="PLG_GKCONTACT_EMAILS_DESC"
+					label="PLG_GKCONTACT_EMAILS"
+					default=""
+				/>
+				
+				<field name="title" type="text"
+					description="PLG_GKCONTACT_TITLE_DESC"
+					label="PLG_GKCONTACT_TITLE"
+					default=""
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

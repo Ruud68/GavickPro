@@ -38,7 +38,7 @@ class NSP_GK5_TechNews_Reviews {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-TechNewsReviews gk-clearfix" id="'.$this->parent->config['module_id'].'" data-autoanim="'.$this->parent->config['portal_mode_technews_reviews_autoanim'].'" data-interval="'.$this->parent->config['portal_mode_technews_reviews_interval'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -69,7 +69,7 @@ class NSP_GK5_TechNews_Reviews {
 		for($i = 0; $i < count($this->parent->content); $i++) {	
 			echo '<div class="gk-content-review'.(($i == 0) ? ' gk-active' : '').'">';
 			echo '<a href="'.$this->get_link($i).'" class="gk-content-img">';
-			echo '<img src="'.$this->get_image($i).'" alt="">';
+			echo '<img src="'.$this->get_image($i).'" alt="'.$this->parent->content[$i]['title'].'">';
 			echo '</a>';
 			echo '<div class="gk-content-title">';
 			echo $this->get_rating($i);
@@ -85,7 +85,7 @@ class NSP_GK5_TechNews_Reviews {
 		
 		echo '</div>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

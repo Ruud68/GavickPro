@@ -44,7 +44,7 @@ class NSP_GK5_News_Gallery {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-NewsGallery'.(($this->parent->config['portal_mode_news_gallery_autoanimation'] == 1) ? ' gkAutoAnimation' : '') . (($this->parent->config['portal_mode_news_gallery_pagination_type'] == 'arrows') ? ' gkArrows' : '').'" data-cols="'.$this->parent->config['portal_mode_news_gallery_cols'].'" data-autoanim-time="'.$this->parent->config['portal_mode_news_gallery_autoanimation_time'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -80,7 +80,7 @@ class NSP_GK5_News_Gallery {
 			}	
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

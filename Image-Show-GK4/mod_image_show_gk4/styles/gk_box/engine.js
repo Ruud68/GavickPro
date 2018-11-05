@@ -1,4 +1,4 @@
-jQuery(window).load(function () {
+jQuery(window).on('load', function() {
     jQuery('.gkIsWrapper-gk_box').each(function(i, el) {
         el = jQuery(el);
         var elID = el.attr("id");
@@ -14,7 +14,7 @@ jQuery(window).load(function () {
         // load the images
         wrapper.find('.gkIsSlide').each(function(i, el) {
             el = jQuery(el);
-            var newImg = new jQuery('<img title="'+el.attr('title')+'" data-link="'+el.attr('data-link') + '" class="gkIsImage" style="z-index: '+el.css('z-index')+';" src="'+el.attr('data-path') + '">');
+            var newImg = new jQuery('<img alt="'+el.attr('alt')+'" title="'+el.attr('title')+'" data-link="'+el.attr('data-link') + '" class="gkIsImage" style="z-index: '+el.css('z-index')+';" src="'+el.attr('data-path') + '">');
             imagesToLoad.push(newImg);
             newImg.insertBefore(el);
             el.remove();

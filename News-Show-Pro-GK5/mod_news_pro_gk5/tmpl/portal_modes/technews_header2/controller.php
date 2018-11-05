@@ -40,7 +40,7 @@ class NSP_GK5_TechNews_Header2 {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-TechNewsHeader2" id="'.$this->parent->config['module_id'].'" data-layout="'.$this->parent->config['portal_mode_technews_header2_layout'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -62,7 +62,7 @@ class NSP_GK5_TechNews_Header2 {
 		// closing images wrapper
 		echo '</div>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

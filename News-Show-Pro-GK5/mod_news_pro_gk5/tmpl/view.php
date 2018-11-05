@@ -130,17 +130,19 @@ class NSP_GK5_View {
             $item['text'] = static::textPlugins($item['text'], $config);
             $text = NSP_GK5_Utils::cutText(strip_tags($item['text']), $config, 'list_text_limit', '&hellip;');
             
-            if(JString::strlen($text) > 0) {
+            if(strlen($text) > 0) {
             	$text = '<p>'.$text.'</p>';
             }
 		}
 		
 		if($config['list_title_limit'] > 0) {
+			if (empty($item['title']))
+				$item['title']='';
 			$title = htmlspecialchars($item['title']);
 			$title = NSP_GK5_Utils::cutText($title, $config, 'list_title_limit', '&hellip;');
 			$title = str_replace('"', "&quot;", $title);
 		
-			if(JString::strlen($title) > 0) {
+			if(strlen($title) > 0) {
 				$title_attrs  = 'title="'.htmlspecialchars($item['title']).'"';
 				$title_attrs .= ' target="'.$config['open_links_window'].'"';
 			
@@ -237,14 +239,14 @@ class NSP_GK5_View {
 	// Get image tag from the specified string
 	static function getImageFromText($text) {
 		if(preg_match('/\<img.*src=.*?\>/', $text)){
-			$imgStartPos = JString::strpos($text, 'src="');
+			$imgStartPos = strpos($text, 'src="');
 			
 			if($imgStartPos) {
-				$imgEndPos = JString::strpos($text, '"', $imgStartPos + 5);
+				$imgEndPos = strpos($text, '"', $imgStartPos + 5);
 			}
 				
 			if($imgStartPos > 0) {
-				return JString::substr($text, ($imgStartPos + 5), ($imgEndPos - ($imgStartPos + 5)));
+				return substr($text, ($imgStartPos + 5), ($imgEndPos - ($imgStartPos + 5)));
 			}
 		}
 		
@@ -252,7 +254,7 @@ class NSP_GK5_View {
 	}
 	
 	// Get image HTML code
-	static function getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img, $alt_text = '', $featured_state = false) {
+	static function getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img, $alt_text = 'Sample Image', $featured_state = false) {
 		if($only_url) {
 			return $IMG_SOURCE;
 		} else {
@@ -330,7 +332,33 @@ class NSP_GK5_View {
 			
 			if($config['news_image_modal'] == 1) {
 				$img_link = $full_size_img;
-				$img_class .= ' modal';
+				if (!version_compare(JVERSION, '3.5', 'ge'))
+					JHTML::_('behavior.modal', 'a.gkmodal');
+				else {
+					$img_output .= '
+						<div class="gkpopup">
+							<div class="gkpopup-content">
+								<img style="max-width:80%; max-height: 80%;" src="'.$img_link.'" />
+							</div>
+						</div>
+					';
+
+					$document = JFactory::getDocument();
+					$document->addScriptDeclaration('
+						jQuery(document).ready(function(){
+							jQuery("a.gkmodal").off().on("click", function(e) {
+								jQuery(this).prev().show();
+								jQuery(this).prev().off().on("click", function(e) {
+									if (e.target.tagName !== "IMG")
+										jQuery(this).hide();
+								});
+								e.preventDefault();
+								return false;
+							});
+						});
+					');
+				}
+				$img_class .= ' gkmodal';
 			}
 			
 			if($config['news_content_image_pos'] == 'center' && !$links) {

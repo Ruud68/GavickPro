@@ -24,6 +24,10 @@ if(!class_exists('NSP_GK5_View')) require_once(JModuleHelper::getLayoutPath('mod
 // start the module code
 $helper = new NSP_GK5_Helper();
 $helper->init($module, $params);
+if (!$helper->getComponentStatus()) {
+	echo JText::_('MOD_NEW_PRO_GK_COMPONENT_NOT_INSTALL');
+	return;
+}
 $helper->getDatas();
 $helper->renderLayout();
 

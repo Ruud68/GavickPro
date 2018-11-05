@@ -1,8 +1,14 @@
 <?php
 
 defined('JPATH_BASE') or die;
+// Joomla 3.0! compability
+
+if(!defined('DS')){ define('DS',DIRECTORY_SEPARATOR); }
 
 jimport('joomla.form.formfield');
+jimport('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
+
 
 class JFormFieldConfigManager extends JFormField {
 	protected $type = 'ConfigManager';
@@ -100,13 +106,13 @@ class JFormFieldConfigManager extends JFormField {
 		$file_delete = JHtml::_('select.genericlist', $options, 'name', '', 'value', 'text', 'default', 'config_manager_delete_filename');
 		// return the standard formfield output
 		$html = '';
-		$html .= '<div id="gk-social"><span>Follow us on the social media: </span> <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fgavickpro&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe> <a href="https://twitter.com/gavickpro" class="twitter-follow-button" data-show-count="false">Follow @Dziudek</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script></div>';
+		$html .= '<div id="gk-social"><span>Follow us on the social media: </span> <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fgavickpro&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe> <a href="https://twitter.com/gavickpro" class="twitter-follow-button" data-show-count="false">Follow @gavickpro</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script></div>';
 		$html .= '<div id="config_manager_form">';
 		$html .= $msg;
-		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_LOAD').'</label>'.$file_select.'<button id="config_manager_load">'.JText::_('MOD_TABS_GK5_CONFIG_LOAD_BTN').'</button></div>';
-		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_SAVE').'</label><input type="text" id="config_manager_save_filename" /><span>.json</span><button id="config_manager_save">'.JText::_('MOD_TABS_GK5_CONFIG_SAVE_BTN').'</button></div>';
-		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_DELETE').'</label>'.$file_delete.'<button id="config_manager_delete">'.JText::_('MOD_TABS_GK5_CONFIG_DELETE_BTN').'</button></div>';
-		$html .= '<div><label>'.JText::_('MOD_TABS_GK4_CONFIG_DIRECTORY').'</label><span>'.$base_path.'</span></div>';
+		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_LOAD').' </label>'.$file_select.'<button class="btn" id="config_manager_load"><i class="icon-download"></i>'.JText::_('MOD_TABS_GK5_CONFIG_LOAD_BTN').' </button></div>';
+		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_SAVE').' </label><div class="input-append"><input type="text" id="config_manager_save_filename" /><span class="add-on">.json</span></div><button class="btn" id="config_manager_save"><i class="icon-upload"></i>'.JText::_('MOD_TABS_GK5_CONFIG_SAVE_BTN').'</button></div>';
+		$html .= '<div><label>'.JText::_('MOD_TABS_GK5_CONFIG_DELETE').' </label>'.$file_delete.'<button class="btn"  id="config_manager_delete"><i class="icon-remove"></i>'.JText::_('MOD_TABS_GK5_CONFIG_DELETE_BTN').'</button></div>';
+		$html .= '<div><span class="label label-warning"> '.JText::_('MOD_TABS_GK4_CONFIG_DIRECTORY').'</span><span class="label">'.$base_path.'</span></div>';
 		$html .= '</div>';
 		// finish the output
 		return $html;
@@ -115,7 +121,7 @@ class JFormFieldConfigManager extends JFormField {
 	protected function getOptions() {
 		$options = array();
 		$path = (string) $this->element['directory'];
-		if (!is_dir($path)) $path = JPATH_ROOT.'/'.$path;
+		if (!is_dir($path)) $path = JPATH_ROOT.DS.$path;
 		$files = JFolder::files($path, '.json');
 
 		if (is_array($files)) {

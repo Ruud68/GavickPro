@@ -12,6 +12,6 @@ class JFormFieldLastmod extends JFormField {
 	}
 
 	protected function getInput() {
-		return '<input type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.time().'" />';
+		return '<input class="form-control" type="text" name="'.$this->name.'" id="'.$this->id.'" value="'.time().'" />';
 	}
 }

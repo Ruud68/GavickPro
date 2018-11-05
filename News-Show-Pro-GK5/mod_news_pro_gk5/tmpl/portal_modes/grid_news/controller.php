@@ -19,12 +19,12 @@ class NSP_GK5_Grid_News {
 	private $mode;
 	// constructor
 	function __construct($parent) {
-	
+
 		$this->parent = $parent;
 		// detect the supported Data Sources
 		if(stripos($this->parent->config['data_source'], 'com_content_') !== FALSE) {
 			$this->mode = 'com_content';
-		} else if(stripos($this->parent->config['data_source'], 'k2_') !== FALSE) { 
+		} else if(stripos($this->parent->config['data_source'], 'k2_') !== FALSE) {
 			$this->mode = 'com_k2';
 		} else {
 			$this->mode = false;
@@ -34,17 +34,17 @@ class NSP_GK5_Grid_News {
 	static function amount_of_articles($parent) {
 		return $parent->config['portal_mode_grid_news_cols'] * $parent->config['portal_mode_grid_news_rows'];
 	}
-	// output generator	
-	function output() {	
+	// output generator
+	function output() {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-GridNews" data-cols="'.$this->parent->config['portal_mode_grid_news_cols'].'">';
-		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
-		
+
 		// render images
-		for($i = 0; $i < count($this->parent->content); $i++) {			
+		for($i = 0; $i < count($this->parent->content); $i++) {
 			$this->parent->content[$i]['title'] = explode('__', $this->parent->content[$i]['title']);
 			$this->parent->content[$i]['title'] = $this->parent->content[$i]['title'][0];
 			// calculate the inverse class
@@ -68,7 +68,7 @@ class NSP_GK5_Grid_News {
 				echo '<h3>';
 				echo '<a href="'.$this->get_link($i).'" title="'.strip_tags($this->parent->content[$i]['title']).'">';
 				$content = NSP_GK5_Utils::cutText(strip_tags($this->parent->content[$i]['title']), $this->parent->config, 'portal_mode_grid_news_title_length', '&hellip;');
-				$content = NSP_GK5_View::textPlugins($content, $config);
+				$content = NSP_GK5_View::textPlugins($content, $this->parent->config);
 				echo $content;
 				echo '</a>';
 				echo '</h3>';
@@ -79,7 +79,7 @@ class NSP_GK5_Grid_News {
 			}
 			// Separator under the title/date
 			if(
-				$this->parent->config['portal_mode_grid_news_title_length'] > 0 || 
+				$this->parent->config['portal_mode_grid_news_title_length'] > 0 ||
 				$this->parent->config['portal_mode_grid_news_date_format'] != ''
 			) {
 				echo '<hr class="separator" />';
@@ -96,17 +96,17 @@ class NSP_GK5_Grid_News {
 		if($this->parent->config['portal_mode_grid_news_url'] != '') {
 			echo '<a href="'.$this->parent->config['portal_mode_grid_news_url'].'">'.$this->parent->config['portal_mode_grid_news_link_text'].'</a>';
 		}
-		
-		if(trim($this->parent->config['nsp_post_text'])) {
+
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
-		
+
 		// closing main wrapper
 		echo '</div>';
 	}
 	// function used to retrieve the item URL
 	function get_link($num) {
-		if($this->mode == 'com_content') {			
+		if($this->mode == 'com_content') {
 			// load necessary com_content View class
 			if(!class_exists('NSP_GK5_com_content_View')) {
 				require_once(JModuleHelper::getLayoutPath('mod_news_pro_gk5', 'com_content/view'));
@@ -123,7 +123,7 @@ class NSP_GK5_Grid_News {
 		}
 	}
 	// image generator
-	function get_image($num) {		
+	function get_image($num) {
 		// used variables
 		$url = false;
 		$output = '';

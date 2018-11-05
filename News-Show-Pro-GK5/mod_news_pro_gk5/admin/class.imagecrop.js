@@ -48,7 +48,7 @@ ImageCrop.prototype.init = function() {
 			jQuery('#jform_params_img_stretch').parent().find('div').trigger('click');
 		}
 		
-		jQuery('#jform_params_img_keep_aspect_ratio').parent().css('display', value == 1 ? 'none' : 'block');
+		jQuery('#jform_params_img_keep_aspect_ratio').parents().eq(1).css('display', value == 1 ? 'none' : 'block');
 		jQuery('#jform_params_img_stretch').parent().css('display', value == 1 ? 'none' : 'block');
 	});
 	// toggle crop options at the start
@@ -63,7 +63,7 @@ ImageCrop.prototype.init = function() {
 		jQuery('#jform_params_img_stretch').parent().find('div').trigger('click');
 	}
 	
-	jQuery('#jform_params_img_keep_aspect_ratio').parent().css('display', value == 1 ? 'none' : 'block');
+	jQuery('#jform_params_img_keep_aspect_ratio').parents().eq(1).css('display', value == 1 ? 'none' : 'block');
 	jQuery('#jform_params_img_stretch').parent().css('display', value == 1 ? 'none' : 'block');
 	
 	// code to prepare other available fields

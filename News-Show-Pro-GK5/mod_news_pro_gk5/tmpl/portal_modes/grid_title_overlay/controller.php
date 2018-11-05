@@ -42,7 +42,7 @@ class NSP_GK5_Grid_Title_Overlay {
 			// output the HTML code
 			echo '<figure class="gkNspPM gkNspPM-GridTitleOverlay" data-textpos="'.$this->parent->config['portal_mode_grid_title_overlay_text_pos'].'" data-textcolor="'.$this->parent->config['portal_mode_grid_title_overlay_text_color'].'">';
 			
-			if(trim($this->parent->config['nsp_pre_text'])) {
+			if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 				echo $this->parent->config['nsp_pre_text'];
 			}
 			//
@@ -62,7 +62,7 @@ class NSP_GK5_Grid_Title_Overlay {
 				echo '</figcaption>';
 			}
 			
-			if(trim($this->parent->config['nsp_post_text'])) {
+			if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 				echo $this->parent->config['nsp_post_text'];
 			}
 			

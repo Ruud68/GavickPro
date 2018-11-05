@@ -12,7 +12,7 @@ PortalModes.prototype.init = function() {
 	// set the array of configuration
 	this.configs = [];
 	this.portalmodes = [];
-	this.tabs = ['NEWS_GALLERY', 'PRODUCT_GALLERY', 'NEWS_BLOCKS', 'TITLE_OVERLAY', 'PORTFOLIO', 'PORTFOLIO2', 'CENTERED_TITLE_OVERLAY', 'PRODUCT_GALLERY_2', 'GRID_TITLE_OVERLAY', 'HIGHLIGHTS', 'VIDEOGALLERY', 'VIDEOLIST', 'JOMSOCIAL_PHOTOS', 'EVENTS_LIST', 'SPEAKERS_LIST', 'GRID_NEWS', 'FRONTPAGE_IMAGE_OVERLAY', 'HIGHLIGHTS', 'PORTFOLIO_GRID', 'NEWS_SLIDER', 'BIKESTORE_SLIDER', 'TECHNEWS_HEADER1', 'TECHNEWS_HEADER2', 'TECHNEWS_RATING', 'TECHNEWS_REVIEWS', 'NEW_NEWS_HEADER', 'NEW_NEWS_SLIDER'];
+	this.tabs = ['NEWS_GALLERY', 'PRODUCT_GALLERY', 'NEWS_BLOCKS', 'TITLE_OVERLAY', 'PORTFOLIO', 'PORTFOLIO2', 'CENTERED_TITLE_OVERLAY', 'PRODUCT_GALLERY_2', 'GRID_TITLE_OVERLAY', 'HIGHLIGHTS', 'VIDEOGALLERY', 'VIDEOLIST', 'JOMSOCIAL_PHOTOS', 'EVENTS_LIST', 'SPEAKERS_LIST', 'GRID_NEWS', 'FRONTPAGE_IMAGE_OVERLAY', 'HIGHLIGHTS', 'PORTFOLIO_GRID', 'NEWS_SLIDER', 'BIKESTORE_SLIDER', 'TECHNEWS_HEADER1', 'TECHNEWS_HEADER2', 'TECHNEWS_RATING', 'TECHNEWS_REVIEWS', 'NEW_NEWS_HEADER', 'NEW_NEWS_SLIDER', 'STORA_NEWS_SLIDER'];
 	// get the data sources configuration
 	jQuery('.gk-json-config-pm').each(function(i, item) {
 		var name = jQuery(item).attr('id').replace('gk-json-config-pm-', '');
@@ -47,8 +47,8 @@ PortalModes.prototype.changeValue = function() {
 			jQuery('#jform_params_use_own_article_format-lbl').parent().parent().css('display', 'none');
 			jQuery('#jform_params_article_format-lbl').parent().parent().css('display', 'none');
 			// hide unnecessary tabs	
-			jQuery('a[href=#attrib-NSP_LINKS_LAYOUT]').parent().css('display', 'none');
-			jQuery('a[href=#attrib-NSP_LINKS_LAYOUT]').parent().css('display', 'none');
+			jQuery('a[href="#attrib-NSP_LINKS_LAYOUT"]').parent().css('display', 'none');
+			jQuery('a[href="#attrib-NSP_LINKS_LAYOUT"]').parent().css('display', 'none');
 			// hide thumbnails tab if not used
 			if($this.configs[portal_mode_value].thumbnails == false) {
 				jQuery('#Thumbnails').parents().eq(2).css('display', 'none');	
@@ -58,7 +58,7 @@ PortalModes.prototype.changeValue = function() {
 			// show the specific one
 			for(var i = 0; i < $this.tabs.length; i++) {
 				if($this.configs[portal_mode_value].full_name == $this.tabs[i]) {
-					jQuery('a[href=#attrib-NSP_PORTAL_MODE_'+$this.tabs[i]+']').parent().css('display', 'block');
+					jQuery('a[href="#attrib-NSP_PORTAL_MODE_'+$this.tabs[i]+'"]').parent().css('display', 'block');
 					break;
 				}	
 			}
@@ -81,9 +81,9 @@ PortalModes.prototype.changeValue = function() {
 			jQuery('#jform_params_use_own_article_format-lbl').parents().eq(1).css('display', 'block');
 			jQuery('#jform_params_article_format-lbl').parents().eq(1).css('display', 'block');
 			// show necessary tabs
-			jQuery('a[href=#attrib-NSP_LINKS_LAYOUT]').parent().css('display', 'block');
-			jQuery('a[href=#attrib-NSP_ARTICLE_LAYOUT]').parent().css('display', 'block');
-			jQuery('a[href=#attrib-NSP_THUMBNAILS]').parent().css('display', 'block');
+			jQuery('a[href="#attrib-NSP_LINKS_LAYOUT"]').parent().css('display', 'block');
+			jQuery('a[href="#attrib-NSP_ARTICLE_LAYOUT"]').parent().css('display', 'block');
+			jQuery('a[href="#attrib-NSP_THUMBNAILS"]').parent().css('display', 'block');
 			// hide all Portal Mode Tabs
 			$this.hideAllPMTabs();
 		}
@@ -92,7 +92,7 @@ PortalModes.prototype.changeValue = function() {
 
 PortalModes.prototype.hideAllPMTabs = function() {	
 	for(var i = 0; i < this.tabs.length; i++) {
-		jQuery('a[href=#attrib-NSP_PORTAL_MODE_'+this.tabs[i]+']').parent().css('display', 'none');
+		jQuery('a[href="#attrib-NSP_PORTAL_MODE_'+this.tabs[i]+'"]').parent().css('display', 'none');
 	}
 }
 
