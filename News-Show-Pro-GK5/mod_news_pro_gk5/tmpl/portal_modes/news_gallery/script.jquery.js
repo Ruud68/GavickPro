@@ -19,13 +19,13 @@ var gkPortalModeNewsGalleryInit = function(module) {
 
 	// check if buttons exists
 	if(module.find('.gkPrevBtn').length) {
-		module.find('.gkPrevBtn').click(function(e) {
+		module.find('.gkPrevBtn').on('click',function(e) {
 			e.preventDefault();
 			module.attr('data-blank', 1);
 			gkPortalModeNewsGalleryAnim(module, 'prev');
 		});
 
-		module.find('.gkNextBtn').click(function(e) {
+		module.find('.gkNextBtn').on('click',function(e) {
 			e.preventDefault();
 			module.attr('data-blank', 1);
 			gkPortalModeNewsGalleryAnim(module, 'next');
@@ -36,7 +36,7 @@ var gkPortalModeNewsGalleryInit = function(module) {
 	if(module.find('.gkPagination').length) {
 		module.find('.gkPagination li').each(function(i, el) {
 			el = jQuery(el);
-			el.click(function(e) {
+			el.on('click',function(e) {
 				e.preventDefault();
 
 				if(i+1 != module.attr('data-current') * 1.0) {
@@ -80,11 +80,11 @@ var gkPortalModeNewsGalleryInit = function(module) {
 	module.bind('touchend', function(e) {
 		var touches = e.originalEvent.changedTouches || e.originalEvent.touches;
 
-		if(touches.length > 0 && arts_swipe) {									
+		if(touches.length > 0 && arts_swipe) {
 			if(
-				Math.abs(touches[0].pageX - arts_pos_start_x) >= 30 && 
+				Math.abs(touches[0].pageX - arts_pos_start_x) >= 30 &&
 				new Date().getTime() - arts_time_start <= 500
-			) {					
+			) {
 				if(touches[0].pageX - arts_pos_start_x > 0) {
 					module.attr('data-blank', 1);
 					gkPortalModeNewsGalleryAnim(module, 'prev');
@@ -134,13 +134,13 @@ var gkPortalModeNewsGalleryInit = function(module) {
 var gkPortalModeNewsGalleryAutoAnim = function(module) {
 	if(module.attr('data-blank') == 1 || module.attr('data-stop') == 1 ) {
 		setTimeout(function() {
-			module.attr('data-blank', 0);	
+			module.attr('data-blank', 0);
 			gkPortalModeNewsGalleryAutoAnim(module);
 		}, module.attr('data-autoanim-time'));
 	} else {
 		gkPortalModeNewsGalleryAnim(module, 'next');
 
-		setTimeout(function() {	
+		setTimeout(function() {
 			gkPortalModeNewsGalleryAutoAnim(module);
 		}, module.attr('data-autoanim-time'));
 	}
@@ -185,9 +185,9 @@ var gkPortalModeNewsGalleryAnim = function(module, dir) {
 	if(module.find('.gkPagination').length) {
 		var items = module.find('.gkPagination li');
 		jQuery(items).removeClass('active');
-		jQuery(items).get(next-1).addClass('active');
+		jQuery(items).eq(next-1).addClass('active');
 	}
-	// show next elements	
+	// show next elements
 	setTimeout(function() {
 		module.find('.gkImage').each(function(i, img) {
 			img = jQuery(img);
@@ -205,7 +205,7 @@ var gkPortalModeNewsGalleryImgClass = function(img, className, delay, time) {
 		img.attr('class', 'gkImage ' + className);
 	} else {
 		setTimeout(function() {
-			img.attr('class', 'gkImage ' + className);	
+			img.attr('class', 'gkImage ' + className);
 		}, time);
 	}
 };

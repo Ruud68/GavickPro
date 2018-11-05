@@ -49,7 +49,7 @@ class NSP_GK5_com_virtuemart_View extends NSP_GK5_View {
 			}
 		}
 		//
-		return NSP_GK5_com_virtuemart_View::getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img, '', $item['featured']);
+		return NSP_GK5_com_virtuemart_View::getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img, $news_title, $item['featured']);
 	}
 	// article information generator
 	static function info($config, $item, $num = 1) {
@@ -177,8 +177,8 @@ class NSP_GK5_com_virtuemart_View extends NSP_GK5_View {
             	$code .= '<form method="post" class="product-variant" action="'.static::itemLink($item, $config).'">';
             }
             
-            $code .= '<div class="addtocart-bar">';
-            $code .= '<span class="quantity-box" style="display: none"><input type="text" class="quantity-input" name="quantity[]" value="1" /></span>';
+            $code .= '<div class="addtocart-bar"><label class="element-invisible" for="quantity'.$product->virtuemart_product_id.'">'.vmText::_ ('COM_VIRTUEMART_CART_QUANTITY').'</label>';
+            $code .= '<span class="quantity-box" style="display: none"><input id="quantity'.$product->virtuemart_product_id.'" type="text" class="quantity-input" name="quantity[]" value="1" /></span>';
             $addtoCartButton = '';
 			if($product->addToCartButton){
 				$addtoCartButton = $product->addToCartButton;

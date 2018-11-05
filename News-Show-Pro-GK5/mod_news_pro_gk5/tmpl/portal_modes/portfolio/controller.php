@@ -42,7 +42,7 @@ class NSP_GK5_Portfolio {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-Portfolio'.(($this->parent->config['portal_mode_portfolio_initial_anim'] == '0') ? ' noInitialAnim' : '').'" data-cols="'.$this->parent->config['portal_mode_portfolio_cols'].'" data-rows="'.$this->parent->config['portal_mode_portfolio_rows'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -79,7 +79,7 @@ class NSP_GK5_Portfolio {
 			}
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		

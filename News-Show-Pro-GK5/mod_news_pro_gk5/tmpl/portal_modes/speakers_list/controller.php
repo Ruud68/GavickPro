@@ -41,7 +41,7 @@ class NSP_GK5_Speakers_List {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-SpeakersList" data-cols="'.$this->parent->config['portal_mode_speakers_list_cols'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -71,7 +71,7 @@ class NSP_GK5_Speakers_List {
 			echo '</figure>';
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

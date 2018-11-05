@@ -37,49 +37,54 @@ class NSP_GK5_com_easyblog_Model {
 	           	$where1 = ' t.id = ';
 	           	// adding quotes to tag name
 	          	$source = $config['easyblog_tags'];
-	         
+
 	        	if(!is_array($source)) {
 	           		$source = array($source);
 	        	}
 			} else {
+				if (trim($config['easyblog_articles'])=='') return null;
 				$source = strpos($config['easyblog_articles'],',') !== false ? explode(',', $config['easyblog_articles']) : $config['easyblog_articles'];
 				$where1 = ' content.id = ';
-				$where2 = ' OR content.id = ';	
+				$where2 = ' OR content.id = ';
 			}
-			//	
+
+			if(!is_array($source)) {
+       	$source = array($source);
+    	}
+			//
 			$where = ''; // initialize WHERE condition
 			// generating WHERE condition
 			for($i = 0;$i < count($source);$i++){
 				if(count($source) == 1) $where .= (is_array($source)) ? $where1.$source[0] : $where1.$source;
-				else $where .= ($i == 0) ? $where1.$source[$i] : $where2.$source[$i];		
+				else $where .= ($i == 0) ? $where1.$source[$i] : $where2.$source[$i];
 			}
-			
+
 			if($where != '') {
 				$where = ' AND (' . $where . ') ';
 			}
 			//
 			$query_name = '
-				SELECT 
+				SELECT
 					c.id AS CID
-				FROM 
+				FROM
 					#__easyblog_category AS c
-				LEFT JOIN 
-					#__easyblog_post AS content 
-					ON 
-					c.id = content.category_id 	
-				'.$tag_join.' 
-				WHERE 
-					1=1 
-					'.$where.'  
-					AND 
+				LEFT JOIN
+					#__easyblog_post AS content
+					ON
+					c.id = content.category_id
+				'.$tag_join.'
+				WHERE
+					1=1
+					'.$where.'
+					AND
 					c.published = 1
-		        ';	
+		        ';
 			// Executing SQL Query
 			$db->setQuery($query_name);
 			// check if some categories was detected
 			if($categories = $db->loadObjectList()) {
 				$categories_array = array();
-				// iterate through all items 
+				// iterate through all items
 				foreach($categories as $item) {
 					if(!in_array($item->CID, $categories_array)) {
 						array_push($categories_array, $item->CID);
@@ -95,17 +100,17 @@ class NSP_GK5_com_easyblog_Model {
 			return null;
 		}
 	}
-	// Method to get articles in standard mode 
-	static function getArticles($categories, $config, $amount) {	
+	// Method to get articles in standard mode
+	static function getArticles($categories, $config, $amount) {
 		//
 		$sql_where = '';
 		$tag_join = '';
 		//
-		if($categories) {		
+		if($categories) {
 			// getting categories ItemIDs
 			for($j = 0; $j < count($categories); $j++) {
 				$sql_where .= ($j != 0) ? ' OR content.category_id = ' . $categories[$j] : ' content.category_id = '. $categories[$j];
-			}	
+			}
 		}
 		// Overwrite SQL query when user set IDs manually
 		if($config['data_source'] == 'easyblog_articles' && $config['easyblog_articles'] != ''){
@@ -113,7 +118,7 @@ class NSP_GK5_com_easyblog_Model {
 			$sql_where = '';
 			$ids = explode(',', $config['easyblog_articles']);
 			//
-			for($i = 0; $i < count($ids); $i++ ){	
+			for($i = 0; $i < count($ids); $i++ ){
 				// linking string with content IDs
 				$sql_where .= ($i != 0) ? ' OR content.id = '.$ids[$i] : ' content.id = '.$ids[$i];
 			}
@@ -121,14 +126,14 @@ class NSP_GK5_com_easyblog_Model {
 		// Overwrite SQL query when user set IDs manually
 		if($config['data_source'] == 'easyblog_authors' && $config['easyblog_authors'] != ''){
 			// initializing variables
-			$sql_where = '';			
+			$sql_where = '';
 			if(!is_array($config['easyblog_authors'])) {
 				$ids = explode(',', $config['easyblog_authors']);
 			} else {
 				$ids = $config['easyblog_authors'];
 			}
 			//
-			for($i = 0; $i < count($ids); $i++ ){	
+			for($i = 0; $i < count($ids); $i++ ){
 				// linking string with content IDs
 				$sql_where .= ($i != 0) ? ' OR content.id = '.$ids[$i] : ' content.id = '.$ids[$i];
 			}
@@ -151,7 +156,7 @@ class NSP_GK5_com_easyblog_Model {
 				$ids = $config['easyblog_authors'];
 			}
 			//
-			for($i = 0; $i < count($ids); $i++ ){	
+			for($i = 0; $i < count($ids); $i++ ){
 				// linking string with content IDs
 				$sql_where .= ($i != 0) ? ' OR content.created_by = '.$ids[$i] : ' content.created_by = '.$ids[$i];
 			}
@@ -162,15 +167,15 @@ class NSP_GK5_com_easyblog_Model {
 		// Initializing standard Joomla classes and SQL necessary variables
 		$db = JFactory::getDBO();
 		$access_con = '';
-		
+
 		if($config['news_unauthorized'] == '1') {
 			$access_con = ' AND (content.access = 1 OR content.access = 0) ';
 		} else {
 			$access_con = ' AND content.access = 0 ';
 		}
 		$app = JFactory::getApplication();
-		$timezone = $app->getCfg('offset') + $config['time_offset'];
-		
+		// $timezone = $app->getCfg('offset') + $config['time_offset'];
+
 		// check if the timezone offset is set
 		if($config['time_offset'] == 0) {
 			$date = JFactory::getDate(date('Y-m-d H:i:s', strtotime('now')));
@@ -179,12 +184,12 @@ class NSP_GK5_com_easyblog_Model {
 		}
 		$now  = $date->toSql(true);
 		$nullDate = $db->getNullDate();
-		
+
 		// if some data are available
 		// when showing only frontpage articles is disabled
 		$frontpage_con1 = '';
 		$frontpage_con2 = '';
-		
+
 		if($config['only_featured'] == 0 && $config['news_featured'] == 0) {
 		 	$frontpage_con1 = ' LEFT JOIN #__easyblog_featured as featured ON content.id = featured.content_id ';
 		 	$frontpage_con2 = ' AND (featured.id IS NULL OR (featured.id IS NOT NULL AND (featured.type NOT LIKE "post" OR featured.type IS NULL))) ';
@@ -192,8 +197,8 @@ class NSP_GK5_com_easyblog_Model {
 			$frontpage_con1 = ' LEFT JOIN #__easyblog_featured as featured ON content.id = featured.content_id ';
 			$frontpage_con2 = ' AND featured.id IS NOT NULL AND featured.type LIKE "post"';
 		}
-		
-		
+
+
 		$since_con = '';
 		//
 		if($config['news_since'] !== '') {
@@ -205,9 +210,9 @@ class NSP_GK5_com_easyblog_Model {
 		}
 		// current article hiding
 		$current_con = '';
-		
+
 		if(
-			$config['hide_current_easyblog_article'] == '1' && 
+			$config['hide_current_easyblog_article'] == '1' &&
 			JRequest::getCmd('option') == 'com_easyblog' &&
 			JRequest::getCmd('view') == 'entry' &&
 			JRequest::getVar('id') != ''
@@ -225,26 +230,26 @@ class NSP_GK5_com_easyblog_Model {
 		$order_options = '';
 		// When sort value is random
 		if(
-			$config['news_sort_value'] == 'random'|| 
+			$config['news_sort_value'] == 'random'||
 			$config['news_sort_value'] == 'user'
 		) {
-			$order_options = ' RAND() '; 
+			$order_options = ' RAND() ';
 		}else{ // when sort value is different than random
 			$order_options = ' content.'.$config['news_sort_value'].' '.$config['news_sort_order'].' ';
-		}	
+		}
 		// language filters
 		$lang_filter = '';
 		if (JFactory::getApplication()->getLanguageFilter()) {
 			$lang_filter = ' AND content.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').') ';
 		}
-		
+
 		if($config['data_source'] != 'easyblog_all' && $sql_where != '') {
 			$sql_where = ' AND ( ' . $sql_where . ' ) ';
 		}
 		// one article per page - helper variables
 		$article_id_query = 'content.id AS id';
 		$one_article_query = '';
-		
+
 		if($config['one_article_per_category'] && $config['data_source'] == 'easyblog_authors') {
 			$article_id_query = 'MAX(content.id) AS id, content.created_by AS author';
 			$one_article_query = ' GROUP BY content.created_by ';
@@ -252,18 +257,18 @@ class NSP_GK5_com_easyblog_Model {
 			$article_id_query = 'MAX(content.id) AS id, content.category_id AS cid';
 			$one_article_query = ' GROUP BY content.category_id ';
 		}
-		// creating SQL query			
+		// creating SQL query
 		$query_news = '
 		SELECT
-			'.$article_id_query.'				
-		FROM 
-			#__easyblog_post AS content 
+			'.$article_id_query.'
+		FROM
+			#__easyblog_post AS content
 			'.$tag_join.'
 			'.$frontpage_con1.'
-		WHERE 
+		WHERE
 			content.published = 1
 			AND content.state = 0
-                '. $access_con .'   
+                '. $access_con .'
 		 		AND ( content.publish_up = '.$db->Quote($nullDate).' OR content.publish_up <= '.$db->Quote($now).' )
 				AND ( content.publish_down = '.$db->Quote($nullDate).' OR content.publish_down >= '.$db->Quote($now).' )
 			'.$sql_where.'
@@ -271,9 +276,9 @@ class NSP_GK5_com_easyblog_Model {
 			'.$since_con.'
 			'.$current_con.'
 			'.$frontpage_con2.'
-		'.$one_article_query.'	
-		
-		ORDER BY 
+		'.$one_article_query.'
+
+		ORDER BY
 			'.$order_options.'
 		LIMIT
 			'.($config['offset']).','.$amount.';
@@ -281,9 +286,9 @@ class NSP_GK5_com_easyblog_Model {
 		// run SQL query
 		$db->setQuery($query_news);
 		// when exist some results
-		if($news = $db->loadAssocList()) {			
+		if($news = $db->loadAssocList()) {
 			// generating tables of news data
-			foreach($news as $item) {	
+			foreach($news as $item) {
 				$content[] = $item; // store item in array
 				$news_amount++;	// news amount
 			}
@@ -302,48 +307,48 @@ class NSP_GK5_com_easyblog_Model {
 		SELECT
 			content.id AS id,
 			content.permalink AS alias,
-			'.($config['use_title_alias'] ? 'content.permalink' : 'content.title').' AS title, 
+			'.($config['use_title_alias'] ? 'content.permalink' : 'content.title').' AS title,
 			content.intro AS text,
-			content.content AS text_alt, 
-			content.'.($config['date_publish'] == 0 ? 'created' : ($config['date_publish'] == 1 ? 'publish_up' : 'publish_down')).' AS date, 
+			content.content AS text_alt,
+			content.'.($config['date_publish'] == 0 ? 'created' : ($config['date_publish'] == 1 ? 'publish_up' : 'publish_down')).' AS date,
 			content.publish_up AS date_publish,
 			content.hits AS hits,
 			content.frontpage AS frontpage,
 			content.category_id AS cid,
-			categories.title AS catname, 
+			categories.title AS catname,
 			categories.alias AS cat_alias,
 			users.email AS author_email,
 			'.$config['username'].' AS author_username,
 			content.created_by AS author_id,
 			content.image AS image
-		FROM 
-			#__easyblog_post AS content 
-			LEFT JOIN 
-				#__easyblog_category AS categories 
-				ON categories.id = content.category_id 
-			LEFT JOIN 
-				#__users AS users 
-				ON users.id = content.created_by 			
-		WHERE 
+		FROM
+			#__easyblog_post AS content
+			LEFT JOIN
+				#__easyblog_category AS categories
+				ON categories.id = content.category_id
+			LEFT JOIN
+				#__users AS users
+				ON users.id = content.created_by
+		WHERE
 			1=1
 			'.$second_sql_where.'
-		ORDER BY 
+		ORDER BY
 			'.$order_options.'
 		';
 		// run the query
 		$db->setQuery($second_query_news);
-		
+
 		// when exist some results
 		if($news2 = $db->loadAssocList()) {
 			// load URL overrides
 			$url_overrides = false;
-			
+
 			if(isset($config['url_overrides']) && $config['url_overrides'] == '1') {
 				$override_file = JPATH_SITE . '/modules/mod_news_pro_gk5/url_overrides.json';
-				
+
 				if(JFile::exists($override_file)) {
 					$override_content = file_get_contents($override_file);
-								
+
 					if($override_content && $override_content != '') {
 						$url_overrides = json_decode($override_content, true);
 					}
@@ -356,13 +361,13 @@ class NSP_GK5_com_easyblog_Model {
 				array_push($content_id, $item['id']);
 			}
 			// generating tables of news data
-			foreach($news2 as $item) {						
+			foreach($news2 as $item) {
 			    $pos = array_search($item['id'], $content_id);
-				
+
 				if(
-				    $url_overrides && 
+				    $url_overrides &&
 				    is_array($url_overrides) &&
-				    count($url_overrides) > 0 && 
+				    count($url_overrides) > 0 &&
 				    isset($url_overrides['com_easyblog'])
 				) {
 					if(isset($url_overrides['com_easyblog'][$item['id']])) {
@@ -386,45 +391,45 @@ class NSP_GK5_com_easyblog_Model {
 		// Reorder items if necessary
 		if(
 			$config['news_sort_value'] == 'user' &&
-			$config['data_source'] == 'easyblog_articles' && 
+			$config['data_source'] == 'easyblog_articles' &&
 			$config['easyblog_articles'] != ''
 		) {
 			$new_content = array();
 			$ids = explode(',', $config['easyblog_articles']);
 			$query_ids = array();
-			
+
 			if(count($content)) {
 				foreach($content as $key => $item) {
 					$query_ids[$item['id']] = $key;
 				}
-				
+
 				foreach($ids as $id) {
 					if(isset($query_ids[$id])) {
 						array_push($new_content, $content[$query_ids[$id]]);
 					}
 				}
-				
+
 				$content = $new_content;
 			}
 		}
 		// the content array
-		return $content; 
+		return $content;
 	}
 	// method to get comments amount
 	static function getComments($content, $config) {
-		// 
+		//
 		$db = JFactory::getDBO();
 		$counters_tab = array();
-		// 
+		//
 		if(count($content) > 0) {
 			// initializing variables
 			$sql_where = '';
 			//
-			for($i = 0; $i < count($content); $i++ ) {	
+			for($i = 0; $i < count($content); $i++ ) {
 				// linking string with content IDs
 				$sql_where .= ($i != 0) ? ' OR content.id = '.$content[$i]['id'] : ' content.id = '.$content[$i]['id'];
 			}
-			
+
 			if($sql_where != '') {
 				$sql_where = ' AND (' . $sql_where . ') ';
 			}
@@ -432,37 +437,37 @@ class NSP_GK5_com_easyblog_Model {
 			if($config['easyblog_comments_source'] == 'easyblog') {
 				// creating SQL query
 				$query_news = '
-				SELECT 
+				SELECT
 					content.id AS id,
-					COUNT(comments.post_id) AS count			
-				FROM 
-					#__easyblog_post AS content 
-					LEFT JOIN 
+					COUNT(comments.post_id) AS count
+				FROM
+					#__easyblog_post AS content
+					LEFT JOIN
 						#__easyblog_comment AS comments
-						ON comments.post_id = content.id 		
-				WHERE 
+						ON comments.post_id = content.id
+				WHERE
 					comments.published
-					'.$sql_where.' 
-				GROUP BY 
+					'.$sql_where.'
+				GROUP BY
 					comments.post_id
 				;';
 			} elseif($config['easyblog_comments_source'] == 'komento') {
 				// creating SQL query
 				$query_news = '
-				SELECT 
+				SELECT
 					content.id AS id,
-					COUNT(comments.cid) AS count			
-				FROM 
-					#__easyblog_post AS content 
-					LEFT JOIN 
+					COUNT(comments.cid) AS count
+				FROM
+					#__easyblog_post AS content
+					LEFT JOIN
 						#__komento_comments AS comments
-						ON comments.cid = content.id 		
-				WHERE 
+						ON comments.cid = content.id
+				WHERE
 					comments.published = 1
 				    '.$sql_where.'
 					AND
-					comments.component = \'com_easyblog\'  
-				GROUP BY 
+					comments.component = \'com_easyblog\'
+				GROUP BY
 					comments.cid
 				;';
 			}
@@ -471,31 +476,31 @@ class NSP_GK5_com_easyblog_Model {
 			// when exist some results
 			if($counters = $db->loadObjectList()) {
 				// generating tables of news data
-				foreach($counters as $item) {						
+				foreach($counters as $item) {
 					$counters_tab[$item->id] = $item->count;
 				}
 			}
 		}
 		//
-		for($i = 0; $i < count($content); $i++ ) {	
+		for($i = 0; $i < count($content); $i++ ) {
 			if(isset($counters_tab[$content[$i]['id']])) {
 				$content[$i]['comments'] = $counters_tab[$content[$i]['id']];
 			}
 		}
-		
+
 		return $content;
-	}	
+	}
 	//
 	static function getTags($content, $config) {
-		// 
+		//
 		$db = JFactory::getDBO();
 		$counters_tab = array();
-		// 
+		//
 		if(count($content) > 0) {
 			// initializing variables
 			$sql_where = '';
 			//
-			for($i = 0; $i < count($content); $i++ ) {	
+			for($i = 0; $i < count($content); $i++ ) {
 				// linking string with content IDs
 				$sql_where .= ($i != 0) ? ' OR content.id = '.$content[$i]['id'] : ' content.id = '.$content[$i]['id'];
 			}
@@ -504,21 +509,21 @@ class NSP_GK5_com_easyblog_Model {
 			}
 			// creating SQL query
 			$query_news = '
-			SELECT 
+			SELECT
 				content.id AS id,
 				tags.title AS tag,
-				tags.id AS tag_id	
-			FROM 
-				#__easyblog_post AS content 
-				LEFT JOIN 
+				tags.id AS tag_id
+			FROM
+				#__easyblog_post AS content
+				LEFT JOIN
 					#__easyblog_post_tag AS xref
 					ON xref.post_id = content.id
 				LEFT JOIN
 					#__easyblog_tag AS tags
-					ON xref.tag_id = tags.id 		
-			WHERE 
+					ON xref.tag_id = tags.id
+			WHERE
 				tags.published = 1
-				'.$sql_where.' 
+				'.$sql_where.'
 			ORDER BY
 				content.id ASC
 			;';
@@ -527,8 +532,8 @@ class NSP_GK5_com_easyblog_Model {
 			// when exist some results
 			if($counters = $db->loadObjectList()) {
 				// generating tables of news data
-				foreach($counters as $item) {			
-					if(isset($counters_tab[$item->id])) {			
+				foreach($counters as $item) {
+					if(isset($counters_tab[$item->id])) {
 						$counters_tab[$item->id][$item->tag] = $item->tag_id;
 					} else {
 						$counters_tab[$item->id] = array($item->tag => $item->tag_id);
@@ -537,14 +542,14 @@ class NSP_GK5_com_easyblog_Model {
 			}
 		}
 		//
-		for($i = 0; $i < count($content); $i++ ) {	
+		for($i = 0; $i < count($content); $i++ ) {
 			if(isset($counters_tab[$content[$i]['id']])) {
 				$content[$i]['tags'] = $counters_tab[$content[$i]['id']];
 			}
 		}
-		
+
 		return $content;
-	}	
+	}
 }
 
 // EOF

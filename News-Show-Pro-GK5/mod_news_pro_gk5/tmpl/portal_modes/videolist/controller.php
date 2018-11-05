@@ -43,7 +43,7 @@ class NSP_GK5_VideoList {
 			// output the HTML code
 			echo '<div class="gkNspPM gkNspPM-VideoList">';
 			
-			if(trim($this->parent->config['nsp_pre_text'])) {
+			if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 				echo $this->parent->config['nsp_pre_text'];
 			}
 			
@@ -64,8 +64,11 @@ class NSP_GK5_VideoList {
 				
 				$info_date = JHTML::_('date', $this->parent->content[$i]['date'], 'M j, Y');
 				//
-				echo '<figure class="gkItem'.($this->get_video($i) != '#' ? ' video' : '').($i < $this->parent->config['portal_mode_video_list_per_page'] ? ' active' : '').'">';
-					echo '<span class="gkImageWrap"><img src="'.$this->get_image($i).'" alt="'.htmlspecialchars(strip_tags($this->parent->content[$i]['title'])).'" data-url="'.$this->get_video($i).'" data-x="'.$this->parent->config['portal_mode_video_list_popup_x'].'" data-y="'.$this->parent->config['portal_mode_video_list_popup_y'].'" /></span>';
+				echo '<figure class="gkItem'.($this->get_video($i) != '#' ? ' video' : '').($i < $this->parent->config['portal_mode_video_list_per_page'] ? ' active' : '').'"><div class="gkItemWrap">';
+					echo '<span class="gkImageWrap"><img src="'.$this->get_image($i).'" alt="'.htmlspecialchars(strip_tags($this->parent->content[$i]['title'])).'" data-url="'.$this->get_video($i).'" data-x="'.$this->parent->config['portal_mode_video_list_popup_x'].'" data-y="'.$this->parent->config['portal_mode_video_list_popup_y'].'" />';
+					echo '</span>';
+
+					echo '<a class="gkImageWrap-link" href="'.$this->get_link($i).'" title="'.htmlspecialchars(strip_tags($this->parent->content[$i]['title'])).'"><span class="element-invisible">'.htmlspecialchars(strip_tags($this->parent->content[$i]['title'])).'</span></a>';
 					
 					echo '<figcaption>';
 						if($this->parent->config['portal_mode_video_list_title'] == 1) {
@@ -76,7 +79,7 @@ class NSP_GK5_VideoList {
 							echo '<strong>' . $info_date . '</strong>';
 						}
 					echo '</figcaption>';
-				echo '</figure>';
+				echo '</div></figure>';
 				
 				if(($i > 0 && (($i+1) % $this->parent->config['portal_mode_video_list_per_page'] == 0) && $i != count($this->parent->content) - 1) || ($this->parent->config['portal_mode_video_list_per_page'] == 1 && $i != count($this->parent->content) - 1)) {
 					echo '</div>';
@@ -102,7 +105,7 @@ class NSP_GK5_VideoList {
 				echo '</div>';
 			}
 			
-			if(trim($this->parent->config['nsp_post_text'])) {
+			if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 				echo $this->parent->config['nsp_post_text'];
 			}
 			

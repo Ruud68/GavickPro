@@ -42,7 +42,7 @@ class NSP_GK5_Bikestore_Slider {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-BikestoreSlider"'.$auto_animation.$animation_speed.'>';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -70,7 +70,7 @@ class NSP_GK5_Bikestore_Slider {
 		echo '<a class="nspPrev">'. JText::_('MOD_NEWS_PRO_GK5_NSP_PREV') .'</a>';
 		echo '<a class="nspNext">'. JText::_('MOD_NEWS_PRO_GK5_NSP_NEXT') .'</a>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		

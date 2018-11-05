@@ -42,7 +42,7 @@ if(file_exists(JPATH_BASE . '/components/com_community/defines.community.php')) 
 			// main wrapper
 			echo '<div class="gkNspPM gkNspPM-JomSocialPhotos'.($this->parent->config['portal_mode_jomsocial_photos_animation'] == 1 ? ' animate' : '').'" data-cols="'.$this->parent->config['portal_mode_jomsocial_photos_amount'].'">';
 			
-			if(trim($this->parent->config['nsp_pre_text'])) {
+			if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 				echo $this->parent->config['nsp_pre_text'];
 			}
 			
@@ -104,7 +104,7 @@ if(file_exists(JPATH_BASE . '/components/com_community/defines.community.php')) 
 			// closing main wrappers
 			echo '</div>';
 			
-			if(trim($this->parent->config['nsp_post_text'])) {
+			if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 				echo $this->parent->config['nsp_post_text'];
 			}
 			

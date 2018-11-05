@@ -38,7 +38,7 @@ class NSP_GK5_New_News_Slider {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-NewNewsSlider" id="'.$this->parent->config['module_id'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -65,11 +65,11 @@ class NSP_GK5_New_News_Slider {
 		echo '</div>';
 		
 		if($this->parent->config['portal_mode_new_news_slider_arrows'] == '1') {
-			echo '<a href="#" class="gkPrev"><i class="fa fa-chevron-left"></i></a>';
-			echo '<a href="#" class="gkNext"><i class="fa fa-chevron-right"></i></a>';
+			echo '<a href="#" class="gkPrev"><span class="fa fa-chevron-left"></span></a>';
+			echo '<a href="#" class="gkNext"><span class="fa fa-chevron-right"></span></a>';
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

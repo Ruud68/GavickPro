@@ -41,7 +41,7 @@ class NSP_GK5_Events_List {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-EventsList" data-cols="'.$this->parent->config['portal_mode_events_list_cols'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -102,7 +102,7 @@ class NSP_GK5_Events_List {
 			echo '<p style="text-align: center"><strong>' . JText::_('MOD_NEWS_PRO_GK5_PORTAL_MODE_EVENTS_LIST_NO_EVENTS') .'</strong></p>';
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		

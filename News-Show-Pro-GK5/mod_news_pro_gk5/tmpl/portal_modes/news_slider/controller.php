@@ -35,6 +35,7 @@ class NSP_GK5_News_Slider {
 	}
 	// output generator	
 	function output() {	
+		// print_r(($this->parent->content));
 		if(count($this->parent->content) < 5) {
 			echo 'This module needs at least 5 articles to display.';
 			return;
@@ -42,7 +43,7 @@ class NSP_GK5_News_Slider {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-NewsSlider" data-autoanim="'.$this->parent->config['portal_mode_news_slider_autoanimation_time'].'" style="min-height: '.intval($this->parent->config['img_height'] + 200.0).'px;">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -139,7 +140,7 @@ class NSP_GK5_News_Slider {
 		
 		echo '<a href="#" class="gk-data-category-link"'.$to_hide_link.'>'.$this->parent->config['portal_mode_news_slider_category_label'].'</a>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

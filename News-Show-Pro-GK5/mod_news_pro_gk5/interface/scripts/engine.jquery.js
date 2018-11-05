@@ -10,7 +10,7 @@
 
 jQuery.noConflict();
 
-jQuery(window).load(function(){
+jQuery(window).on('load', function() {
 	jQuery(document).find('.nspMain').each(function(i, module) {	
 		if(!jQuery(module).hasClass('activated')) {	
 			new NSP5(module);

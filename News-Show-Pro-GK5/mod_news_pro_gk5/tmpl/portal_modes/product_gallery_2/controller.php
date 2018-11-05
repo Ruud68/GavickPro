@@ -74,7 +74,7 @@ class NSP_GK5_Product_Gallery_2 {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-ProductGallery2" data-cols="'.$this->parent->config['portal_mode_product_gallery_2_cols'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -102,7 +102,7 @@ class NSP_GK5_Product_Gallery_2 {
 			}		
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper
@@ -246,8 +246,8 @@ class NSP_GK5_Product_Gallery_2 {
 	        if($config['portal_mode_product_gallery_2_button'] == 'cart') {
 	            $code = '<div class="addtocart-area">';
 	            $code .= '<form method="post" class="product" action="index.php">';
-	            $code .= '<div class="addtocart-bar">';
-	            $code .= '<span class="quantity-box" style="display: none"><input type="text" class="quantity-input" name="quantity[]" value="1" /></span>';
+	            $code .= '<div class="addtocart-bar"><label class="element-invisible" for="quantity'.$product->virtuemart_product_id.'">'.vmText::_ ('COM_VIRTUEMART_CART_QUANTITY').'</label>';
+	            $code .= '<span class="quantity-box" style="display: none"><input id="quantity'.$product->virtuemart_product_id.'" type="text" class="quantity-input" name="quantity[]" value="1" /></span>';
 	            $addtoCartButton = '';
 
 				if($product->addToCartButton){

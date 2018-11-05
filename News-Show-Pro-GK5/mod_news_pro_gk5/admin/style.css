@@ -1,10 +1,10 @@
-/** * Admin CSS file 
-* @package News Show Pro GK5 
-* @Copyright (C) 2009-2013 Gavick.com 
-* @ All rights reserved 
-* @ Joomla! is Free Software 
-* @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html 
-* @version $Revision: GK5 1.0 $ **/ 
+/** * Admin CSS file
+* @package News Show Pro GK5
+* @Copyright (C) 2009-2013 Gavick.com
+* @ All rights reserved
+* @ Joomla! is Free Software
+* @ Released under GNU/GPL License : http://www.gnu.org/copyleft/gpl.html
+* @version $Revision: GK5 1.0 $ **/
 
 #jform_params_about_us-lbl,
 #jform_params___field1-lbl,
@@ -338,69 +338,69 @@ span.gk_update_link a:hover {
 
 #gk_module_updates p {
 	color: #555
-} 
+}
 
 /* Crop CSS rules */
 
-#simple_crop { 
-	width: 400px; 
+#simple_crop {
+	width: 400px;
 	margin: 0 auto;
 }
 #simple_crop_top_wrap,
 #simple_crop_bottom_wrap,
 #simple_crop_left_wrap,
-#simple_crop_right_wrap { 
-	width: 46px; 
+#simple_crop_right_wrap {
+	width: 46px;
 }
 #simple_crop_top_wrap,
-#simple_crop_bottom_wrap { 
+#simple_crop_bottom_wrap {
 	margin: 5px 0 5px 140px
 }
 #simple_crop_left_wrap,
-#simple_crop_right_wrap { 
-	float: left; 
-	margin-top: 90px; 
+#simple_crop_right_wrap {
+	float: left;
+	margin-top: 90px;
 }
-#simple_crop_left_wrap { 
-	margin-right: 30px; 
+#simple_crop_left_wrap {
+	margin-right: 30px;
 }
-#simple_crop_right_wrap { 
-	margin-left: 10px; 
+#simple_crop_right_wrap {
+	margin-left: 10px;
 }
 #simple_crop_top,
 #simple_crop_bottom,
 #simple_crop_left,
-#simple_crop_right { 
-	font-size: 12px; 
-	width: 24px; 
+#simple_crop_right {
+	font-size: 12px;
+	width: 24px;
 }
-#simple_crop_main_wrap { 
-	clear: both; 
-	overflow: hidden; 
+#simple_crop_main_wrap {
+	clear: both;
+	overflow: hidden;
 }
-#simple_crop_bg { 
-	width: 202px; 
-	height: 202px; 
-	border: 3px solid #eee; 
-	background: url('cropbg.jpg') no-repeat; 
-	float:left; 
+#simple_crop_bg {
+	width: 202px;
+	height: 202px;
+	border: 3px solid #eee;
+	background: url('cropbg.jpg') no-repeat;
+	float:left;
 }
-#simple_crop_crop { 
-	width: 200px; 
-	height: 200px; 
-	border: 1px solid #ddd; 
-	background: #fff; 
-	opacity: 0.5; 
-	filter:alpha(opacity=50); 
+#simple_crop_crop {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #ddd;
+	background: #fff;
+	opacity: 0.5;
+	filter:alpha(opacity=50);
 	-webkit-transition: all .3s ease-out;
 	-moz-transition: all .3s ease-out;
 	-ms-transition: all .3s ease-out;
 	-o-transition: all .3s ease-out;
 	transition: all .3s ease-out;
 }
-#paramscrop_rules { 
-	width: 90%; 
-	height: 120px; 
+#paramscrop_rules {
+	width: 90%;
+	height: 120px;
 }
 
 /* Config manager */
@@ -424,7 +424,7 @@ span.gk_update_link a:hover {
 
 #config_manager_form label {
 	margin: 11px 0 0 0;
-} 
+}
 
 /* GK5 - new rules */
 
@@ -453,6 +453,11 @@ span.gk_update_link a:hover {
 	right: 20px;
 	max-width: 510px;
 }
+
+.collapse #config_manager_form {
+	position: unset;
+}
+
 #config_manager_form label {
 	margin: 11px 0 0
 }
@@ -546,7 +551,7 @@ fieldset.panelform select[multiple=multiple] {
 }
 #jform_params_links_img_width,
 #jform_params_links_img_height {
-	width: 52px;	
+	width: 52px;
 }
 .gkFormLine.hasText span {
 	background: #fff;
@@ -838,10 +843,11 @@ select.gk_switch {
 /* Social media */
 #gk-social {
 	margin-top: 10px;
+	clear: both;
 }
 
 #gk-social iframe {
-	margin-right: 5px;	
+	margin-right: 5px;
 	min-width: 120px;
 }
 
@@ -850,7 +856,7 @@ select.gk_switch {
 	font-size: 12px;
 	line-height: 1.6;
 	margin-right: 20px;
-	vertical-align: top;	
+	vertical-align: top;
 }
 
 /* Joomla!3.0 fixes */
@@ -918,7 +924,7 @@ div.switcher-off + select {
 	margin: 0 auto 2px;
 }
 
-@media (max-width: 1050px) { 
+@media (max-width: 1050px) {
 	#config_manager_form,
 	#simple_crop {
 		position: relative;
@@ -992,14 +998,49 @@ div.switcher-off + select {
 /* J!3.7 fixes */
 .field-calendar,
 select {
-    display: block!important;
+  display: block!important;
 }
 
 select ~ .chzn-container {
-    display: none!important;
+  display: none!important;
 }
 
 #config_manager_load_filename,
 #config_manager_delete_filename {
-    float: left;
+  float: left;
 }
+
+/* J4 fixex */
+.j4 ul#myTabTabs > li {
+	width: 100%;
+}
+
+.j4 #config_manager_form {
+	right: auto;
+}
+
+.j4 #config_manager_form label {
+	margin-top: 0;
+	margin-bottom: .5rem;
+}
+
+.j4 .control-group .text-muted {
+	display: none;
+}
+
+.j4 div.control-group > div.controls #jform_params_img_width,
+.j4 div.control-group > div.controls #jform_params_img_height,
+.j4 div.control-group > div.controls #jform_params_links_img_width,
+.j4 div.control-group > div.controls #jform_params_links_img_height {
+	max-width: 60px;
+}
+
+span.readonly { padding: 10px; font-family: Arial; font-size:13px !important; font-weight: normal !important; text-align: justify; color: #4d4d4d; line-height: 24px; }
+span.readonly h1 { clear:both; font-family: Georgia, sans-serif; font-size:38px; margin:30px 20px 23px; padding:0px 0px 24px 10px; color:#333; border-bottom: 1px solid #eee; font-weight: normal; }
+span.readonly p { margin: 0 26px 10px }
+span.readonly p a { color: #ef6b09 }
+span.readonly p.homepage { margin-top: 30px }
+span.readonly p.license { border-top: 1px solid #eee; font-size: 11px; margin: 30px 26px 0; padding: 6px 0; }
+span.tooltip-content { display: none; }
+.tip-text span.readonly { display: none; }
+.tip-text span.tooltip-content { display: block; }

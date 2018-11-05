@@ -13,7 +13,7 @@
 // access restriction
 defined('_JEXEC') or die('Restricted access');
 
-class NSP_GK5_New_News_Header {
+class NSP_GK5_Stora_News_Slider {
 	// necessary class fields
 	private $parent;
 	private $mode;
@@ -31,45 +31,40 @@ class NSP_GK5_New_News_Header {
 	}
 	// static function which returns amount of articles to render - VERY IMPORTANT!!
 	static function amount_of_articles($parent) {
-		if($parent->config['portal_mode_new_news_header_layout'] == 'main_2rows_2rows') {
-			return 5;
-		}
-		
-		if($parent->config['portal_mode_new_news_header_layout'] == '4cols_2cols') {
-			return 6;
-		}
-		
-		if($parent->config['portal_mode_new_news_header_layout'] == '4rows') {
-			return 4;
-		}
-		
-		return 1;
+		return $parent->config['portal_mode_stora_news_slider_amount'];
 	}
 	// output generator	
 	function output() {
 		// main wrapper
-		echo '<div class="gkNspPM gkNspPM-NewNewsHeader" id="'.$this->parent->config['module_id'].'" data-layout="'.$this->parent->config['portal_mode_new_news_header_layout'].'">';
+		echo '<div class="gkNspPM gkNspPM-StoraNewsSlider" id="'.$this->parent->config['module_id'].'">';
 		
 		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
 		// images wrapper
-		echo '<div class="gkImagesWrapper">';
+		echo '<div class="gkListWrapper" data-arrows="'.$this->parent->config['portal_mode_stora_news_slider_arrows'].'">';
+		echo '<div class="gkList owl-carousel owl-theme">';
 		// render images
 		for($i = 0; $i < count($this->parent->content); $i++) {			
-			if($this->get_image($i)) {
-				echo '<div class="gkImage gkImage'.($i+1).'">';
-				echo '	<div class="gkImageArea" style="background-image: url(\''.strip_tags($this->get_image($i)).'\');"></div>';
-				echo '	<h2 class="gkTitle"><a href="'.strip_tags($this->get_link($i)).'">'.strip_tags($this->parent->content[$i]['title']).'</a></h2>';
-				echo '</div>';
-			}		
+			echo '<div class="gkItem item">';
+			echo '<div class="gkItemWrap">';
+			
+			if($this->parent->config['portal_mode_stora_news_slider_images'] == '1') {
+				echo '<a href="'.strip_tags($this->get_link($i)).'" class="gkImageWrapper">';
+				echo '<img class="gkImage" src="'.$this->get_image($i).'" alt="" width="'.$this->parent->config['img_width'].'" height="'.$this->parent->config['img_height'].'" />';
+				echo '</a>';
+			}
+			echo '<dl class="article-info"><dt class="hidden">Date</dt><dd class="published">'.JHtml::_('date', strip_tags($this->parent->content[$i]['date_publish']), JText::_('DATE_FORMAT_LC3')).'</dd></dl>';
+			echo '<h2 class="gkTitle"><a href="'.strip_tags($this->get_link($i)).'">'.strip_tags($this->parent->content[$i]['title']).'</a></h2>';
+			$string = substr(strip_tags($this->parent->content[$i]['text']), 0, $this->parent->config['portal_mode_stora_news_slider_max_lenght']);
+			$string = substr($string, 0, strrpos($string, ' ')) . " ...";
+			echo '<p class="gkDesc">'.$string.'<p>';
+			echo '</div>';
+			echo '</div>';	
 		}
-		// blank image for the proper proportions
-		echo '	<div class="gkBlankImage">';
-		echo '		<img src="data:image/png;base64,'.$this->generateBlankImage($this->parent->config['img_width'], $this->parent->config['img_height']).'" alt="" />';
-		echo '	</div>';
 		// closing images wrapper
+		echo '</div>';
 		echo '</div>';
 		
 		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
@@ -77,6 +72,42 @@ class NSP_GK5_New_News_Header {
 		}
 		// closing main wrapper
 		echo '</div>';
+	
+		?>
+		<script>
+			jQuery(document).ready(function() {
+				jQuery('.owl-carousel').owlCarousel({
+			    loop: true,
+			    margin: 40,
+			    <?php if($this->parent->config['portal_mode_stora_news_slider_arrows'] == '1') echo 'nav: true,'; ?>
+			    items: <?php echo $this->parent->config['portal_mode_stora_news_slider_number_of_column']; ?>,
+			    autoplay: <?php echo $this->parent->config['portal_mode_stora_news_slider_interval'] ? 'true' : 'false'; ?>,
+			    autoplayTimeout: <?php echo $this->parent->config['portal_mode_stora_news_slider_interval']; ?>,
+// 			    autoplayHoverPause: true,
+			    responsive : {
+				    // breakpoint from 0 up
+				    0 : {
+				        items: 1
+				    },
+				    // breakpoint from 480 up
+				    480 : {
+				        items: 1
+				    },
+				    // breakpoint from 768 up
+				    768 : {
+				        items: 2
+				    }, 
+				    980 : {
+				    		items: 3
+				    },
+				    1200 : {
+				    		items: 4
+				    }
+				}
+			  })
+			});
+		</script>
+	<?php
 	}
 	// function used to retrieve the item URL
 	function get_link($num) {
@@ -123,29 +154,11 @@ class NSP_GK5_New_News_Header {
 		} else {
 			// if URL isn't blank - return it!
 			if($url != '') {
-				if(stripos($url, 'http://') === FALSE && stripos($url, 'https://') === FALSE) {
-					$url = JURI::base() . $url;
-				} 
-				
 				return $url;
 			} else {
 				return false;
 			}
 		}
-	}
-	// function to generate blank transparent PNG images
-	public function generateBlankImage($width, $height){ 
-		$image = imagecreatetruecolor($width, $height);
-		imagesavealpha($image, true);
-		$transparent = imagecolorallocatealpha($image, 0, 0, 0, 127);
-		imagefill($image, 0, 0, $transparent);
-		// cache the output
-		ob_start();
-		imagepng($image);
-		$img =  ob_get_contents();
-		ob_end_clean();
-		// return the string
-		return base64_encode($img);
 	}
 }
 
