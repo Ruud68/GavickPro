@@ -23,11 +23,11 @@ if($this->config['random_slides'] == 1) {
 
 <div id="gkIs-<?php echo $this->config['module_id'];?>" class="gkIsWrapper-gk_rockwall" data-textpos="<?php echo $this->config['config']->gk_rockwall->gk_rockwall_title_block_position; ?>">
 	<div class="gkIsPreloader">Loading&hellip;</div>
-	
+
 	<?php for($i = 0; $i < count($this->config['image_show_data']); $i++) : ?>
 	<?php if($this->config['image_show_data'][$i]->published) : ?>
-		<?php 
-			
+		<?php
+
 			unset($path, $title, $link, $content);
 			// creating slide path
 			$path = '';
@@ -39,7 +39,7 @@ if($this->config['random_slides'] == 1) {
 				$path .= $this->config['image_show_data'][$i]->image;
 			}
 			$content = '';
-			
+
             if($this->config['image_show_data'][$i]->type == "k2"){
               	if(isset($this->articlesK2[$this->config['image_show_data'][$i]->artK2_id])) {
               		$title = htmlspecialchars($this->articlesK2[$this->config['image_show_data'][$i]->artK2_id]["title"]);
@@ -56,15 +56,18 @@ if($this->config['random_slides'] == 1) {
 				// creating slie content
 				$content = ($this->config['image_show_data'][$i]->type == "text") ? $this->config['image_show_data'][$i]->content : $title;
 				// creating slide link
-				$link = ($this->config['image_show_data'][$i]->type == "text") ? $this->config['image_show_data'][$i]->url : $this->articles[$this->config['image_show_data'][$i]->art_id]["link"];	
+				$link = ($this->config['image_show_data'][$i]->type == "text") ? $this->config['image_show_data'][$i]->url : $this->articles[$this->config['image_show_data'][$i]->art_id]["link"];
 			}
-			
+
 			// img alt attribute
 			$alt = htmlspecialchars($this->config['image_show_data'][$i]->alt);
 		?>
-		<figure data-url="<?php echo $path; ?>" data-link="<?php echo $link; ?>" data-alt="<?php echo $alt; ?>" data-zindex="<?php echo $i+1; ?>" data-title="<?php echo $title; ?>">
-			<?php if($this->config['config']->gk_rockwall->gk_rockwall_show_title_block && $title != '') : ?>	
-			<figcaption<?php echo ' style="width: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_width.'%; padding: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_padding.'; background: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_bg.'; color: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_color.';"'; ?>>
+		<figure class="figure" data-url="<?php echo $path; ?>" data-link="<?php echo $link; ?>" data-alt="<?php echo $alt; ?>" data-zindex="<?php echo $i+1; ?>" data-title="<?php echo $title; ?>">
+			<?php if (version_compare(JVERSION, '4.0', 'ge')) : ?>
+				<div class="figure-img"></div>
+			<?php endif; ?>
+			<?php if($this->config['config']->gk_rockwall->gk_rockwall_show_title_block && $title != '') : ?>
+			<figcaption class="figcaption" <?php echo ' style="width: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_width.'%; padding: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_padding.'; background: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_bg.'; color: '.$this->config['config']->gk_rockwall->gk_rockwall_title_block_color.';"'; ?>>
 				<h2><?php echo $title; ?></h2>
 				<a href="<?php echo $link; ?>" class="button"><?php echo JText::_('MOD_IMAGE_SHOW_ROCKWALL_READMORE'); ?></a>
 			</figcaption>
@@ -72,9 +75,9 @@ if($this->config['random_slides'] == 1) {
 		</figure>
 	<?php endif; ?>
 	<?php endfor; ?>
-	
+
 	<ul class="gkIsPagination">
-	<?php 
+	<?php
 	$j = 0;
 	for($i = 0; $i < count($this->config['image_show_data']); $i++) : ?>
 		<?php if($this->config['image_show_data'][$i]->published) : ?>

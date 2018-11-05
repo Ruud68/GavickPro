@@ -16,8 +16,6 @@ defined('_JEXEC') or die;
 $firstFlag = false;
 $firstFlagPag = false;
 
-jimport('joomla.utilities.string');
-
 if($this->config['random_slides'] == 1) {
 	shuffle($this->config['image_show_data']);
 }
@@ -52,6 +50,7 @@ if($this->config['random_slides'] == 1) {
 
 				// img alt attribute
 				$alt = htmlspecialchars($slide->alt);
+				if ($alt=="") $alt = "Sample Image";
 			?>
 			<?php if(!$firstFlag) : ?>
 				<img src="<?php echo $path; ?>" class="gkIsImage active" alt="<?php echo $alt; ?>" title="<?php echo $title; ?>" data-link="<?php echo $link; ?>" />
@@ -81,8 +80,10 @@ if($this->config['random_slides'] == 1) {
 							$path = $uri->root();
 							$path .= $slide->image;
 						}
+
+						if ($alt=="") $alt = "Sample Image";
 					?>
-					<img src="<?php echo $path; ?>" alt="" />
+					<img src="<?php echo $path; ?>" alt="<?php echo $alt; ?>" />
 				</li>
 				<?php $firstFlag = true; ?>
 			<?php endif; ?>
@@ -103,8 +104,8 @@ if($this->config['random_slides'] == 1) {
 							$text = htmlspecialchars(($slide->type == "text") ? $slide->content : $this->articles[$slide->art_id]["text"]);
 						}
 
-						if(JString::strlen($text) > $this->config['config']->gk_box->gk_box_text_block_length) {
-							$text = JString::substr($text, 0, $this->config['config']->gk_box->gk_box_text_block_length);
+						if(strlen($text) > $this->config['config']->gk_box->gk_box_text_block_length) {
+							$text = substr($text, 0, $this->config['config']->gk_box->gk_box_text_block_length);
 						}
 
 						echo $text;

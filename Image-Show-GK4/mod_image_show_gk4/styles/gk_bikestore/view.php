@@ -13,8 +13,6 @@
 // no direct access
 defined('_JEXEC') or die;
 
-jimport('joomla.utilities.string');
-
 if($this->config['random_slides'] == 1) {
 	shuffle($this->config['image_show_data']);
 }
@@ -62,7 +60,7 @@ if($this->config['random_slides'] == 1) {
 			
 			<?php if($this->config['config']->gk_bikestore->gk_bikestore_show_title_block) : ?>	
 			<figcaption<?php echo ' class="'.$this->config['config']->gk_bikestore->gk_bikestore_title_block_position.' '.$this->config['config']->gk_bikestore->gk_bikestore_title_block_position_x.'"'; ?>>
-				<h3><a href="<?php echo $link; ?>"><?php echo JString::substr($title, 0, $this->config['config']->gk_bikestore->gk_bikestore_title_block_length); ?></a></h3>
+				<h3><a href="<?php echo $link; ?>"><?php echo substr($title, 0, $this->config['config']->gk_bikestore->gk_bikestore_title_block_length); ?></a></h3>
 			</figcaption>
 			<?php endif; ?>
 		</figure>

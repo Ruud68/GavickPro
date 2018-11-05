@@ -1,4 +1,4 @@
-jQuery(window).load(function () {
+jQuery(window).on('load',function () {
     setTimeout(function () {
         jQuery('.gkIsWrapper-gk_storefront').each(function(i, el) {
             el = jQuery(el);
@@ -18,10 +18,10 @@ jQuery(window).load(function () {
             wrapper.find('figure').each(function(i, el) {
                 el = jQuery(el);
                 var newImg = new jQuery('<img title="'+el.attr('data-title')+'" class="gkIsSlide" style="z-index: '+el.attr('data-zindex')+';" src="'+el.attr('data-url') + '">');
-                links[i] = el.attr('data-link'); 
-                imagesToLoad.push(newImg); 
+                links[i] = el.attr('data-link');
+                imagesToLoad.push(newImg);
                 newImg.insertBefore(el.find('figcaption'));
-            }); 
+            });
         //
         var time = setInterval(function() {
             var process = 0;
@@ -52,8 +52,8 @@ jQuery(window).load(function () {
                     setTimeout(function() {
                         wrapper.find('figure').first().addClass('activated');
                     }, 50);
-                    
-                }, 400); 
+
+                }, 400);
                 //
                 $G['actual_slide'] = 0;
                 //
@@ -137,7 +137,7 @@ jQuery(window).load(function () {
 },
 1000);
 });
-                                
+
 var gk_storefront_animate = function($G, wrapper, imgPrev, imgNext) {
     var prevfig = jQuery(imgPrev).find('figcaption');
     //
@@ -154,17 +154,17 @@ var gk_storefront_animate = function($G, wrapper, imgPrev, imgNext) {
     }, $G['anim_speed'], function() {
         jQuery(imgPrev).attr('class', '');
     });
-    
+
     jQuery(imgNext).animate({
         opacity: 1
     }, $G['anim_speed'], function() {
         jQuery(imgNext).attr('class', 'active');
         var nextfig = jQuery(imgNext).find('figcaption');
-        
+
         setTimeout(function() {
             jQuery(imgNext).attr('class', 'active activated');
         }, 50);
-        
+
         if (nextfig) {
             nextfig.css('opacity', 0);
             nextfig.animate({
@@ -193,14 +193,14 @@ var gk_storefront_animate = function($G, wrapper, imgPrev, imgNext) {
 var gk_storefront_autoanimate = function($G, wrapper, dir, next) {
     var i = $G['actual_slide'];
     var imgs = wrapper.find('figure');
-    
+
 
     if (next == null) {
         next = (dir == 'next') ? ((i < imgs.length - 1) ? i + 1: 0) : ((i == 0) ? imgs.length - 1: i - 1);
         // dir: next|prev
         }
 
-    
+
     gk_storefront_animate($G, wrapper, imgs[i], imgs[next]);
     $G['actual_slide'] = next;
 
