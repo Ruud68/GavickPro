@@ -63,8 +63,8 @@ class NSP_GK5_Utils {
 			} elseif($limit_type == 'words' && $limit_value == 0) {
 				return '';
 			} else {
-				if(JString::strlen($text) > $limit_value){
-					$cutted = JString::substr(strip_tags($text, $allowed_html), 0, $limit_value);
+				if(strlen($text) > $limit_value){
+					$cutted = substr(strip_tags($text, $allowed_html), 0, $limit_value);
 					$cutted = rtrim($cutted, '\'"!,.');
 					$text = $cutted . $at_end;
 				} else {
@@ -82,7 +82,7 @@ class NSP_GK5_Utils {
 			} elseif ($limit_type == 'words' && $limit_value == 0) {
 				return '';
 			} else {
-				if(JString::strlen(strip_tags($text)) > $limit_value) {
+				if(strlen(strip_tags($text)) > $limit_value) {
 					$text = NSP_GK5_Utils::cutHTML(str_replace(array('<p>', '</p>'), '', $text), $limit_value, $limit_type);
 					$text .= $at_end;
 				}
@@ -222,7 +222,7 @@ class cutHTMLString{
 				$this->wordCount += count($words_array);
 			} else {
 				//
-				if(JString::strlen($el->nodeValue) + $this->charCount >= $this->limit){
+				if(strlen($el->nodeValue) + $this->charCount >= $this->limit){
 					$newEl = $this->newDiv->importNode($el);
 					$newEl->nodeValue = substr($newEl->nodeValue, 0, $this->limit - $this->charCount);
 					$newParent->appendChild($newEl);
@@ -232,7 +232,7 @@ class cutHTMLString{
 				//
 				$newEl = $this->newDiv->importNode($el);
 				$newParent->appendChild($newEl);
-				$this->charCount += JString::strlen($newEl->nodeValue);
+				$this->charCount += strlen($newEl->nodeValue);
 			}
 		}
 		

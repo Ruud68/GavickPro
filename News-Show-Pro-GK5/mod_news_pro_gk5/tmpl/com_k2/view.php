@@ -28,6 +28,7 @@ class NSP_GK5_com_k2_View extends NSP_GK5_View {
 		$item['title'] = str_replace('"', "&quot;", $item['title']);
 		$uri = JURI::getInstance();
 		$IMG_SOURCE = static::originalImage($config, $item);
+		$alt_text = $item['title'];
 		//
 		$full_size_img = $IMG_SOURCE;
 		//
@@ -56,7 +57,7 @@ class NSP_GK5_com_k2_View extends NSP_GK5_View {
 			}
 		}
 		
-		return NSP_GK5_com_k2_View::getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img);
+		return NSP_GK5_com_k2_View::getImageHTML($only_url, $IMG_SOURCE, $links, $config, $IMG_LINK, $full_size_img, $alt_text);
 	}
 	// article information generator
 	static function info($config, $item, $num = 1) {

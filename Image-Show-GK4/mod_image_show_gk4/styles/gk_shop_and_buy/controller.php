@@ -113,7 +113,10 @@ class GKIS_gk_shop_and_buy_Controller {
 		// if mootools file doesn't exists in document head section
 		if(!$engine_founded){ 
 			// add new script tag connected with mootools from module
-			$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine.js');
+			if (version_compare(JVERSION, '4.0', 'ge'))
+				$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine_j4.js');
+			else
+				$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine.js');
 		}
 		// if CSS not found
 		if(!$css_founded && $this->config['use_style_css'] == 1) {

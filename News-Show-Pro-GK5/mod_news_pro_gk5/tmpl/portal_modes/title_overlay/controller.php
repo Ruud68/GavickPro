@@ -40,7 +40,7 @@ class NSP_GK5_Title_Overlay {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-TitleOverlay" data-textpos="'.$this->parent->config['portal_mode_title_overlay_text_pos'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -59,7 +59,7 @@ class NSP_GK5_Title_Overlay {
 			echo '</figure>';
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

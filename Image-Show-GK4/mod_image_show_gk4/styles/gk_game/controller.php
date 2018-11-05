@@ -45,7 +45,7 @@ class GKIS_gk_game_Controller {
 	function checkImages() {
 		// if the thumbnail generation is enabled
 		if($this->config['generate_thumbnails'] == 1) {
-			// basic images params		
+			// basic images params
 			$img_width = $this->config['config']->gk_game->gk_game_image_width;
 			$img_height = $this->config['config']->gk_game->gk_game_image_height;
 			$img_bg = $this->config['config']->gk_game->gk_game_image_bg;
@@ -53,7 +53,7 @@ class GKIS_gk_game_Controller {
 			// check the slides
 			foreach($this->config['image_show_data'] as $slide) {
 				$stretch = ($slide->stretch == 'nostretch') ? false : true;
-				GKIS_Game_Image::createThumbnail($slide->image, $this->config, $img_width, $img_height, $img_bg, $stretch, $quality);	
+				GKIS_Game_Image::createThumbnail($slide->image, $this->config, $img_width, $img_height, $img_bg, $stretch, $quality);
 			}
 		}
 	}
@@ -71,7 +71,7 @@ class GKIS_gk_game_Controller {
 					array_push($ids, 0);
 				}
 			}
-			
+
 			if($slide->type == 'k2') {
 				if($slide->artK2_id) {
 					array_push($idsK2, $slide->artK2_id);
@@ -111,9 +111,12 @@ class GKIS_gk_game_Controller {
 			$css_founded = true;
 		}
 		// if mootools file doesn't exists in document head section
-		if(!$engine_founded){ 
+		if(!$engine_founded){
 			// add new script tag connected with mootools from module
-			$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine.js');
+			if (version_compare(JVERSION, '4.0', 'ge'))
+				$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine_j4.js');
+			else
+				$document->addScript($uri->root().'modules/mod_image_show_gk4/styles/'.$this->config['styles'].'/engine.js');
 		}
 		// if CSS not found
 		if(!$css_founded && $this->config['use_style_css'] == 1) {
@@ -138,32 +141,32 @@ class GKIS_gk_game_Controller {
 			margin: 0 0 -'.$margin.'px 0;
 			min-height: '.$height.'px;
 		}
-		
+
 		#gkIs-'.$this->config['module_id'].'.gkIsWrapper-gk_game .gkIsSlide {
 			background-size: '.$width.'px '.$height.'px;
 			height: '.$height.'px;
 			max-width: '.$width.'px;
 		}
-		
+
 		@media (max-width: 1100px) {
 			#gkIs-'.$this->config['module_id'].'.gkIsWrapper-gk_game {
 				margin: 0 0 -'.$t_margin.'px 0;
 				min-height: '.$t_height.'px;
 			}
-			
+
 			#gkIs-'.$this->config['module_id'].'.gkIsWrapper-gk_game .gkIsSlide {
 				background-size: '.$t_width.'px '.$t_height.'px;
 				height: '.$t_height.'px;
 				max-width: '.$t_width.'px;
 			}
 		}
-		
+
 		@media (max-width: 600px) {
 			#gkIs-'.$this->config['module_id'].'.gkIsWrapper-gk_game {
 				margin: 0 0 -'.$m_margin.'px 0;
 				min-height: '.$m_height.'px;
 			}
-			
+
 			#gkIs-'.$this->config['module_id'].'.gkIsWrapper-gk_game .gkIsSlide {
 				background-size: '.$m_width.'px '.$m_height.'px;
 				height: '.$m_height.'px;

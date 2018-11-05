@@ -75,7 +75,7 @@ if($this->config['random_slides'] == 1) {
 			}
 		?>
 		<figure<?php echo $figure_class; ?>>
-			<img src="<?php echo $path; ?>" data-link="<?php echo $link; ?>" />
+			<img src="<?php echo $path; ?>" data-link="<?php echo $link; ?>" alt="<?php echo $title; ?>" />
 		
 			<?php if($title != '' && $content != '') : ?>
 			<figcaption>

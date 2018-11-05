@@ -1,12 +1,12 @@
-jQuery(window).load(function() {
+jQuery(window).on("load", function() {
 	setTimeout(function() {
 		jQuery(document).find('.gkNspPM-VideoGallery').each(function(i, module) {
 			module = jQuery(module);
-			
+
 			if(!module.hasClass('active')) {
 				module.addClass('active');
 			}
-			
+
 			var mod = new GKNSPVideoGallery();
 			mod.init(module);
 		});
@@ -23,7 +23,7 @@ var GKNSPVideoGallery = function(module) {
 		current: 0,
 		currentPage: 0,
 		blank: false,
-		
+
 		init: function(wrapper) {
 			//
 			$this = this;
@@ -70,7 +70,7 @@ var GKNSPVideoGallery = function(module) {
 				$this.next();
 			}, this.interval);
 		},
-		
+
 		next: function() {
 			if(!this.blank) {
 				// check amount of pages and elements
@@ -80,48 +80,48 @@ var GKNSPVideoGallery = function(module) {
 				//
 				if(this.current > itemsAmount - 2) {
 					this.current = 0;
-					
+
 					if(this.currentPage != Math.floor(this.current / perPage)) {
 						var toHide = jQuery(this.smallarea.find('.gkItemsPage')[this.currentPage]);
 						var toShow = jQuery(this.smallarea.find('.gkItemsPage')[0]);
-						
-						toHide.animate({ 
+
+						toHide.animate({
 							'opacity': 0
 						}, 250, function() {
 							toHide.removeClass('active');
 							$this.currentPage = 0;
-							
+
 							toShow.css('opacity', 0);
 							toShow.addClass('active');
-				
+
 							toShow.animate({
 								'opacity': 1
 							}, 250);
 						});
 					}
-	
+
 					jQuery(this.smallarea.find('.gkItem').first()).trigger('click');
 				} else {
 					this.current = this.current * 1 + 1;
-					
+
 					if(this.currentPage != Math.floor(this.current / perPage)) {
 						var toHide = jQuery(this.smallarea.find('.gkItemsPage')[this.currentPage]);
 						this.currentPage = Math.floor(this.current / perPage);
 						var toShow = jQuery(this.smallarea.find('.gkItemsPage')[this.currentPage]);
-						
-						toHide.animate({ 
+
+						toHide.animate({
 							'opacity': 0
 						}, 250, function() {
 							toHide.removeClass('active');
 							toShow.css('opacity', 0);
 							toShow.addClass('active');
-				
+
 							toShow.animate({
 								'opacity': 1
 							}, 250);
 						});
 					}
-					
+
 					jQuery(this.smallarea.find('.gkItem')[this.current]).trigger('click');
 				}
 			} else {
@@ -133,7 +133,7 @@ var GKNSPVideoGallery = function(module) {
 			}, this.interval);
 		}
 	};
-	
+
 	return API;
 };
 

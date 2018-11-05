@@ -1,4 +1,4 @@
-jQuery(window).load(function() {
+jQuery(window).on("load",function() {
 	setTimeout(function() {
 		jQuery(document).find('.gkNspPM-FrontpageImageOverlay').each(function(i, module) {
 			module = jQuery(module);

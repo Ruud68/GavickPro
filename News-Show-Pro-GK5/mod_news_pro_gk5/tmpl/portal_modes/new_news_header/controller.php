@@ -50,7 +50,7 @@ class NSP_GK5_New_News_Header {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-NewNewsHeader" id="'.$this->parent->config['module_id'].'" data-layout="'.$this->parent->config['portal_mode_new_news_header_layout'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -72,7 +72,7 @@ class NSP_GK5_New_News_Header {
 		// closing images wrapper
 		echo '</div>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

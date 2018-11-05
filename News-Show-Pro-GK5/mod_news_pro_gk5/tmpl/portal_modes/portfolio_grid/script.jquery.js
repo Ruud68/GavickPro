@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
 				setTimeout(function() {
 					var new_img = jQuery('<img src="' + img.attr('data-url') + '" class="image-not-loaded" />');
 					new_img.appendTo(img);
-					new_img.load(function() {	
+					new_img.on('load',function() {	
 						new_img.removeClass('image-not-loaded');
 						new_img.parent().find('.helper-image').remove();
 						
@@ -96,7 +96,7 @@ jQuery(document).ready(function() {
 								}, 300);
 								
 								var img = jQuery('<img>', { class: 'loading' });
-								img.load(function() {
+								img.on('load',function() {
 									img.removeClass('loading');
 								});
 								img.attr('src', photo.attr('data-popup-url'));

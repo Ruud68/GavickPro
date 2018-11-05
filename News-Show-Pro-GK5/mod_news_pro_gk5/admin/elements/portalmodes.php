@@ -58,18 +58,20 @@ class JFormFieldPortalModes extends JFormField {
 							$file_content = str_replace($phrase, '\'.JText::_("'.$phrase.'").\'', $file_content);
 						}
 					}
-					//
+
 					$file_content = "'" . $file_content . "'";
-					$out_fn = create_function('', 'return ' . $file_content . ';');
+					@$out_fn = create_function('', 'return ' . $file_content . ';');
+
 					// output the config
 					$output_configs .= '<div class="gk-json-config-pm" id="gk-json-config-pm-'.$json_data->name.'">'.$out_fn().'</div>';
 				}
 			}
 		}
 		// output the select
-		echo '<select id="'.$this->id.'" name="'.$this->name.'"><option value="normal"'.(($this->value == 'normal') ? ' selected="selected"' : '').'>'.JText::_('MOD_NEWS_PRO_GK5_NORMAL_MODE').'</option>'.$output_options.'</select>';
+		echo '<select class="form-control custom-select"  id="'.$this->id.'" name="'.$this->name.'"><option value="normal"'.(($this->value == 'normal') ? ' selected="selected"' : '').'>'.JText::_('MOD_NEWS_PRO_GK5_NORMAL_MODE').'</option>'.$output_options.'</select>';
 		echo $output_configs;
 	}
 }
 
 /* EOF */
+

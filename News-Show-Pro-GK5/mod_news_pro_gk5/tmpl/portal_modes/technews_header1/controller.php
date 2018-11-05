@@ -40,7 +40,7 @@ class NSP_GK5_TechNews_Header1 {
 		// main wrapper
 		echo '<div class="gkNspPM gkNspPM-TechNewsHeader1" id="'.$this->parent->config['module_id'].'" data-cols="'.$this->parent->config['portal_mode_technews_header1_cols'].'">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -50,11 +50,11 @@ class NSP_GK5_TechNews_Header1 {
 		$j = 0;
 		for($i = 0; $i < count($this->parent->content); $i++) {			
 			if($this->get_image($i)) {
-				echo '<div class="gkImage'.(($j == 0) ? ' active' : '').'">';
+				echo '<div class="gkImage'.(($j == 0) ? ' active' : '').'"><div class="gkImageWrap">';
 				echo '	<div class="gkImageArea" style="background-image: url(\''.strip_tags($this->get_image($i)).'\');"></div>';
 				echo '	<p class="gkTitle">'.strip_tags($this->parent->content[$i]['title']).'</p>';
-				echo '	<a href="'.strip_tags($this->get_link($i)).'"><i class="micon">arrow_forward</i></a>';
-				echo '</div>';
+				echo '	<a href="'.strip_tags($this->get_link($i)).'"><span class="micon">arrow_forward</span></a>';
+				echo '</div></div>';
 				$j = 1;
 			}		
 		}
@@ -65,7 +65,7 @@ class NSP_GK5_TechNews_Header1 {
 		// closing images wrapper
 		echo '</div>';
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		// closing main wrapper

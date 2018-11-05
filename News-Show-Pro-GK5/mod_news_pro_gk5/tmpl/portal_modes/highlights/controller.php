@@ -40,7 +40,7 @@ class NSP_GK5_Highlights {
 		// output the HTML code
 		echo '<ol class="gkNspPM gkNspPM-Highlights">';
 		
-		if(trim($this->parent->config['nsp_pre_text'])) {
+		if(!empty($this->parent->config['nsp_pre_text']) && trim($this->parent->config['nsp_pre_text'])) {
 			echo $this->parent->config['nsp_pre_text'];
 		}
 		
@@ -55,7 +55,7 @@ class NSP_GK5_Highlights {
 			echo '</li>';
 		}
 		
-		if(trim($this->parent->config['nsp_post_text'])) {
+		if(!empty($this->parent->config['nsp_post_text']) && trim($this->parent->config['nsp_post_text'])) {
 			echo $this->parent->config['nsp_post_text'];
 		}
 		

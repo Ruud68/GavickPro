@@ -102,6 +102,7 @@ class NSP_GK5_com_easyblog_View extends NSP_GK5_View {
 	static function info($config, $item, $num = 1) {
 		// %AUTHOR %DATE %HITS %CATEGORY
 		$news_info = '';
+		$author = '';
 		//
 		if($num == 1){
 			if($config['news_content_info_pos'] != 'disabled') {
